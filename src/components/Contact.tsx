@@ -1,103 +1,115 @@
+import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Twitter, Instagram } from 'lucide-react';
 import ContactForm from './ContactForm';
 import { ContactInfo } from '../types';
-import { useIsHoverable } from '../hooks/useIsHoverable';
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
+gsap.registerPlugin(ScrollTrigger);
 
 interface ContactProps {
   contact: ContactInfo;
 }
 
 const Contact = ({ contact }: ContactProps) => {
-  const isHoverable = useIsHoverable();
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      }
-    }
-  };
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    if (!sectionRef.current) return;
+    const ctx = gsap.context(() => {
+      gsap.from('.contact-heading', {
+        y: 60, opacity: 0, duration: 0.9, ease: 'power3.out',
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
+      });
+    }, sectionRef);
+    return () => ctx.revert();
+  }, []);
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.5,
-        ease: "easeOut" as const
-      }
-    }
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] } },
   };
 
-  const socialLinkHover = isHoverable ? { scale: 1.1, y: -2, boxShadow: "0px 10px 20px rgba(56, 189, 248, 0.3)" } : {};
-
   return (
-    <section id="contact" className="section-padding">
-      <motion.div 
-        className="container-max"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.1 }}
-      >
-        <motion.div variants={itemVariants} className="mb-12">
-          <h2 className="text-4xl sm:text-5xl font-bold text-dark tracking-wide mb-2">
-            Contact
-          </h2>
-          <p className="text-base text-accent max-w-2xl">
+    <section id="contact" ref={sectionRef} className="section-padding bg-parchment overflow-hidden">
+      <div className="container-max">
+        <div className="divider mb-16" />
+
+        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
+          <div>
+            <p className="text-[11px] tracking-[0.25em] text-muted uppercase mb-3">Get In Touch</p>
+            <h2 className="contact-heading font-serif font-black text-5xl md:text-6xl text-dark leading-none">Contact</h2>
+          </div>
+          <p className="text-xs text-muted max-w-sm leading-relaxed">
             新しいプロジェクトのご相談や、お問い合わせがございましたら、
             お気軽にご連絡ください。
           </p>
-        </motion.div>
+        </div>
 
-        <motion.div 
-          variants={itemVariants}
-        >
-          <div className="grid md:grid-cols-2 gap-12 items-start">
-            <motion.div variants={containerVariants}>
-              <motion.h3 variants={itemVariants} className="text-2xl font-bold text-light mb-2">
-                SNS
-              </motion.h3>
-              <motion.p variants={itemVariants} className="text-accent mb-6">
-                下記のフォームまたはSNSからご連絡ください。
-              </motion.p>
-              
-              <motion.div variants={itemVariants} className="flex space-x-4">
+        <div className="grid md:grid-cols-2 gap-12 items-start">
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+            className="space-y-8"
+          >
+            <div>
+              <h3 className="text-xs font-semibold tracking-widest text-muted uppercase mb-4">Connect</h3>
+              <p className="text-sm text-dark/70 leading-relaxed mb-6">
+                下記のフォームまたはSNSからご連絡ください。お仕事のご依頼、技術相談、何でもお気軽にどうぞ。
+              </p>
+
+              <div className="flex gap-4">
                 {contact.twitter && (
                   <motion.a
                     href={contact.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-12 h-12 bg-dark border border-accent/30 rounded-full flex items-center justify-center"
-                    whileHover={socialLinkHover}
+                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-dark hover:bg-dark hover:text-light hover:border-dark transition-all"
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
-                    <Twitter size={20} className="text-light" />
+                    <Twitter size={16} />
                   </motion.a>
                 )}
-                
-                <motion.a
-                  href={contact.instagram}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-12 h-12 bg-dark border border-accent/30 rounded-full flex items-center justify-center"
-                  whileHover={socialLinkHover}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <Instagram size={20} className="text-light" />
-                </motion.a>
-              </motion.div>
-            </motion.div>
+                {contact.instagram && (
+                  <motion.a
+                    href={contact.instagram}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-dark hover:bg-dark hover:text-light hover:border-dark transition-all"
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    <Instagram size={16} />
+                  </motion.a>
+                )}
+              </div>
+            </div>
 
-            <motion.div variants={itemVariants}>
-              <ContactForm />
-            </motion.div>
-          </div>
-        </motion.div>
-      </motion.div>
+            <div className="bg-cream rounded-2xl border border-warm p-6">
+              <p className="text-[10px] tracking-widest text-muted uppercase mb-2">Email</p>
+              <a
+                href={`mailto:${contact.email}`}
+                className="text-sm font-medium text-dark hover:underline underline-offset-4 transition-all"
+              >
+                {contact.email}
+              </a>
+            </div>
+          </motion.div>
+
+          <motion.div
+            variants={itemVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.2 }}
+          >
+            <ContactForm />
+          </motion.div>
+        </div>
+      </div>
     </section>
   );
 };

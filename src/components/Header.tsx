@@ -1,6 +1,5 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useIsHoverable } from '../hooks/useIsHoverable';
 
 const navItems = [
   { name: 'Home', href: '#home' },
@@ -10,148 +9,104 @@ const navItems = [
   { name: 'Contact', href: '#contact' },
 ];
 
-const HamburguerIcon = ({ isOpen, toggle }: { isOpen: boolean, toggle: () => void }) => {
-  const isHoverable = useIsHoverable();
-  const buttonHover = isHoverable ? { scale: 1.1 } : {};
-
-  const lineVariants = {
-    closed: (custom: number) => ({ rotate: 0, y: custom * 7 }),
-    open: (custom: number) => ({ rotate: custom * 45, y: 0 })
-  };
-
-  return (
-    <motion.button
-      onClick={toggle}
-      className="w-8 h-8 relative z-50"
-      whileHover={buttonHover}
-      whileTap={{ scale: 0.9 }}
-      animate={isOpen ? "open" : "closed"}
-    >
-      <motion.div custom={1} variants={lineVariants} className="absolute h-1 w-7 rounded-md bg-gray-500 top-1/2 -translate-y-1/2" />
-      <motion.div custom={-1} variants={lineVariants} className="absolute h-1 w-7 rounded-md bg-gray-500 top-1/2 -translate-y-1/2" />
-    </motion.button>
-  );
-};
-
-const MobileMenu = ({ isOpen, toggle }: { isOpen: boolean, toggle: () => void }) => {
-  const panelVariants = {
-    hidden: { x: '100%', transition: { type: 'tween' as const, ease: 'easeIn' as const } },
-    visible: { x: 0, transition: { type: 'tween' as const, ease: 'easeOut' as const } }
-  };
-  const listVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.2 } }
-  };
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0, transition: { type: 'spring' as const } }
-  };
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          className="fixed inset-0 z-40 bg-white/90 backdrop-blur-md md:hidden"
-          variants={panelVariants}
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-        >
-          <motion.nav 
-            className="h-full flex flex-col items-center justify-center gap-8"
-            variants={listVariants}
-          >
-            {navItems.map((item) => (
-              <motion.a
-                key={item.name}
-                href={item.href}
-                onClick={toggle}
-                className="text-4xl font-bold text-gray-700 hover:text-dark transition-colors"
-                variants={itemVariants}
-              >
-                {item.name}
-              </motion.a>
-            ))}
-          </motion.nav>
-        </motion.div>
-      )}
-    </AnimatePresence>
-  );
-};
-
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-  const [activeSection, setActiveSection] = useState('Home');
 
   useEffect(() => {
-    if (isMenuOpen) {
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = 'auto';
-    }
-    return () => { document.body.style.overflow = 'auto'; };
+    document.body.style.overflow = isMenuOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 10);
-      
-      const sections = navItems.map(item => document.getElementById(item.href.substring(1)));
-      let currentSection = 'Home';
-      for (const section of sections) {
-        if (section && section.getBoundingClientRect().top < window.innerHeight / 2) {
-          currentSection = section.id.charAt(0).toUpperCase() + section.id.slice(1);
-        }
-      }
-      setActiveSection(currentSection);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    handleScroll();
-    
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
-  
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggle = () => setIsMenuOpen(prev => !prev);
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-50 py-4 md:py-0">
-        <div className={`container-max transition-all duration-300
-          ${isScrolled ? 'md:mt-2 md:bg-white/80 md:backdrop-blur-lg md:shadow-lg md:rounded-2xl' : ''}
-        `}>
-          <div className="flex items-center justify-between h-16 px-4">
-            <a href="#home" className="flex items-center gap-2">
-              <motion.img 
-                src="/icon.png" 
-                alt="Logo" 
-                className="h-8 w-8 rounded-md hidden md:block"
-              />
-            </a>
+      <motion.header
+        className="fixed top-0 left-0 right-0 z-50 px-6 md:px-12 py-5 flex items-center justify-between"
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <a href="#home" className="flex items-center gap-2 group">
+          <motion.span
+            className="w-2.5 h-2.5 rounded-full bg-dark inline-block"
+            animate={{ scale: [1, 1.3, 1] }}
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+          />
+          <span className="text-xs font-semibold tracking-[0.2em] text-dark uppercase">
+            Sanshiro Hikawa
+          </span>
+        </a>
 
-            <nav className="hidden md:flex space-x-2">
-              {navItems.map((item) => (
-                <a key={item.name} href={item.href} className={`relative px-3 py-2 text-sm font-medium transition-colors duration-300 ${isScrolled ? 'text-gray-600 hover:text-dark' : 'text-white hover:opacity-80'}`}>
-                  {item.name}
-                  {activeSection === item.name && (
-                    <motion.div
-                      className={`absolute bottom-0 left-0 right-0 h-0.5 ${isScrolled ? "bg-dark": "bg-white"}`}
-                      layoutId="underline"
-                      transition={{ type: 'spring', stiffness: 300, damping: 25 }}
-                    />
-                  )}
-                </a>
+        <motion.button
+          onClick={toggle}
+          className="flex items-center gap-2.5 bg-dark text-light px-5 py-2.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase hover:bg-dark/80 transition-colors"
+          whileTap={{ scale: 0.95 }}
+        >
+          MENU
+          <div className="flex flex-col gap-[4px]">
+            <motion.span
+              className="w-4 h-[1.5px] bg-light block origin-center"
+              animate={isMenuOpen ? { rotate: 45, y: 2.75 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+            <motion.span
+              className="w-4 h-[1.5px] bg-light block origin-center"
+              animate={isMenuOpen ? { rotate: -45, y: -2.75 } : { rotate: 0, y: 0 }}
+              transition={{ duration: 0.3 }}
+            />
+          </div>
+        </motion.button>
+      </motion.header>
+
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div
+            className="fixed inset-0 z-50 bg-cream flex flex-col"
+            initial={{ clipPath: 'inset(0 0 100% 0)' }}
+            animate={{ clipPath: 'inset(0 0 0% 0)' }}
+            exit={{ clipPath: 'inset(0 0 100% 0)' }}
+            transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-center justify-between px-6 md:px-12 py-5">
+              <a href="#home" onClick={toggle} className="flex items-center gap-2">
+                <span className="w-2.5 h-2.5 rounded-full bg-dark inline-block" />
+                <span className="text-xs font-semibold tracking-[0.2em] text-dark uppercase">Sanshiro Hikawa</span>
+              </a>
+              <button
+                onClick={toggle}
+                className="flex items-center gap-2.5 bg-dark text-light px-5 py-2.5 rounded-full text-xs font-semibold tracking-[0.15em] uppercase"
+              >
+                CLOSE ✕
+              </button>
+            </div>
+
+            <nav className="flex-1 flex flex-col items-start justify-center px-8 md:px-16 gap-1">
+              {navItems.map((item, i) => (
+                <motion.a
+                  key={item.name}
+                  href={item.href}
+                  onClick={toggle}
+                  className="group relative text-5xl md:text-8xl font-serif font-black text-dark leading-none py-2 overflow-hidden"
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 40 }}
+                  transition={{ delay: i * 0.07, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                >
+                  <span className="relative inline-block transition-transform duration-300 group-hover:translate-x-4">
+                    {item.name}
+                  </span>
+                </motion.a>
               ))}
             </nav>
-            
-            <div className="md:hidden">
-              <HamburguerIcon isOpen={isMenuOpen} toggle={toggleMenu} />
+
+            <div className="px-8 md:px-16 py-8 border-t border-warm flex items-center justify-between">
+              <p className="text-xs text-muted tracking-widest">FRONTEND / BACKEND DEVELOPER</p>
+              <p className="text-xs text-muted">© 2025</p>
             </div>
-          </div>
-        </div>
-      </header>
-      <MobileMenu isOpen={isMenuOpen} toggle={toggleMenu} />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 };

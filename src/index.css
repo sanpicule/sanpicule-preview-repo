@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,8 +7,8 @@
 @layer base {
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #F9FAFB; /* gray-50 */
-    color: #111827; /* gray-900 */
+    background-color: #EDEAE2;
+    color: #1A1917;
     overflow-x: hidden;
     position: relative;
   }
@@ -20,7 +20,7 @@
 
 @layer components {
   .section-padding {
-    @apply py-12 px-4 sm:py-20 sm:px-6 lg:px-8;
+    @apply py-16 px-6 sm:py-24 sm:px-8 lg:px-12;
   }
 
   .container-max {
@@ -28,24 +28,50 @@
   }
 
   .glass-card {
-    @apply bg-white border border-gray-200 rounded-2xl shadow-lg;
+    @apply bg-parchment border border-warm rounded-2xl;
   }
-  
-  /* Dynamic Viewport Height */
+
   .h-screen-dynamic {
-    height: 100vh; /* Fallback */
+    height: 100vh;
     height: calc(var(--vh, 1vh) * 100);
   }
-  
+
   .min-h-screen-dynamic {
-    min-height: 100vh; /* Fallback */
+    min-height: 100vh;
     min-height: calc(var(--vh, 1vh) * 100);
   }
 
   .btn { @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300; }
-  .btn-primary { @apply bg-gray-500 text-white; }
-  .btn-secondary { @apply bg-gray-900 text-white border border-gray-300 md:hover:bg-gray-800; }
+  .btn-primary { @apply bg-dark text-light hover:bg-dark/80; }
+  .btn-secondary { @apply bg-parchment text-dark border border-warm hover:bg-warm; }
   .btn-icon { @apply w-12 h-12 flex items-center justify-center rounded-full; }
-  .carousel-arrow { @apply absolute top-1/2 -translate-y-1/2 bg-dark/50 text-white p-2 rounded-full md:hover:bg-dark/80 transition-colors z-10; }
-  .tag { @apply px-2 py-1 bg-gray-200 text-gray-800 text-sm font-medium rounded-md; }
+  .tag { @apply px-3 py-1 bg-cream text-dark text-xs font-medium rounded-full border border-warm; }
+
+  /* Warm divider */
+  .divider {
+    @apply border-t border-warm;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: #EDEAE2; }
+::-webkit-scrollbar-thumb { background: #CAC5BB; border-radius: 3px; }
+
+/* Cursor styles */
+.custom-cursor {
+  width: 12px; height: 12px;
+  background: #1A1917;
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: width 0.3s, height 0.3s, background 0.3s;
+}
+.cursor-follower {
+  width: 36px; height: 36px;
+  border: 1.5px solid #1A1917;
+  border-radius: 50%;
+  position: fixed; pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: all 0.15s ease-out;
 }

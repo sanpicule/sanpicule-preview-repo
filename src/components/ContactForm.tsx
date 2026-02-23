@@ -60,94 +60,67 @@ const ContactForm = () => {
     }
   };
 
-  const buttonHover = isHoverable ? { scale: 1.05, boxShadow: "0px 0px 20px rgba(56, 189, 248, 0.7)" } : {};
+  const buttonHover = isHoverable ? { scale: 1.02 } : {};
+  const inputClass = (hasError: boolean) =>
+    `w-full px-0 py-2.5 bg-transparent border-b text-dark text-sm focus:outline-none transition-colors duration-300 placeholder:text-muted/50 ${
+      hasError ? 'border-red-400' : 'border-warm focus:border-dark'
+    }`;
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
       <div>
-        <label htmlFor="name" className="block text-sm font-semibold text-accent mb-1">
+        <label htmlFor="name" className="block text-[10px] font-semibold text-muted tracking-widest uppercase mb-2">
           お名前 *
         </label>
-        <input
-          type="text"
-          id="name"
-          {...register('name')}
-          className={`w-full px-1 py-2 bg-transparent border-b text-black focus:outline-none transition-colors duration-300 ${
-            errors.name ? 'border-red-400 focus:border-red-400' : 'border-accent/30 focus:border-primary'
-          }`}
-        />
-        {errors.name && (
-          <p className="mt-2 text-sm text-red-400">{errors.name.message}</p>
-        )}
+        <input type="text" id="name" {...register('name')} className={inputClass(!!errors.name)} />
+        {errors.name && <p className="mt-1.5 text-xs text-red-500">{errors.name.message}</p>}
       </div>
 
       <div>
-        <label htmlFor="email" className="block text-sm font-semibold text-accent mb-1">
+        <label htmlFor="email" className="block text-[10px] font-semibold text-muted tracking-widest uppercase mb-2">
           メールアドレス *
         </label>
-        <input
-          type="email"
-          id="email"
-          {...register('email')}
-          className={`w-full px-1 py-2 bg-transparent border-b text-black focus:outline-none transition-colors duration-300 ${
-            errors.email ? 'border-red-400 focus:border-red-400' : 'border-accent/30 focus:border-primary'
-          }`}
-        />
-        {errors.email && (
-          <p className="mt-2 text-sm text-red-400">{errors.email.message}</p>
-        )}
+        <input type="email" id="email" {...register('email')} className={inputClass(!!errors.email)} />
+        {errors.email && <p className="mt-1.5 text-xs text-red-500">{errors.email.message}</p>}
       </div>
 
       <div>
-        <label htmlFor="subject" className="block text-sm font-semibold text-accent mb-1">
+        <label htmlFor="subject" className="block text-[10px] font-semibold text-muted tracking-widest uppercase mb-2">
           件名 *
         </label>
-        <input
-          type="text"
-          id="subject"
-          {...register('subject')}
-          className={`w-full px-1 py-2 bg-transparent border-b text-black focus:outline-none transition-colors duration-300 ${
-            errors.subject ? 'border-red-400 focus:border-red-400' : 'border-accent/30 focus:border-primary'
-          }`}
-        />
-        {errors.subject && (
-          <p className="mt-2 text-sm text-red-400">{errors.subject.message}</p>
-        )}
+        <input type="text" id="subject" {...register('subject')} className={inputClass(!!errors.subject)} />
+        {errors.subject && <p className="mt-1.5 text-xs text-red-500">{errors.subject.message}</p>}
       </div>
 
       <div>
-        <label htmlFor="message" className="block text-sm font-semibold text-accent mb-1">
+        <label htmlFor="message" className="block text-[10px] font-semibold text-muted tracking-widest uppercase mb-2">
           メッセージ *
         </label>
         <textarea
           id="message"
           {...register('message')}
           rows={5}
-          className={`w-full px-1 py-2 bg-transparent border-b text-black focus:outline-none resize-none transition-colors duration-300 ${
-            errors.message ? 'border-red-400 focus:border-red-400' : 'border-accent/30 focus:border-primary'
-          }`}
+          className={`${inputClass(!!errors.message)} resize-none`}
         />
-        {errors.message && (
-          <p className="mt-2 text-sm text-red-400">{errors.message.message}</p>
-        )}
+        {errors.message && <p className="mt-1.5 text-xs text-red-500">{errors.message.message}</p>}
       </div>
 
       <motion.button
         type="submit"
         disabled={isSubmitting}
-        className="w-full bg-slate-800 py-3 text-white font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center rounded-full"
+        className="w-full bg-dark text-light py-3.5 text-xs font-semibold tracking-widest uppercase disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center rounded-full"
         whileHover={buttonHover}
-        whileTap={{ scale: 0.95 }}
+        whileTap={{ scale: 0.97 }}
         transition={{ duration: 0.2 }}
       >
         {isSubmitting ? (
           <>
-            <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-dark mr-3"></div>
+            <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-light mr-3" />
             送信中...
           </>
         ) : (
           <>
-            <Send size={16} className="mr-2" />
+            <Send size={14} className="mr-2" />
             送信する
           </>
         )}

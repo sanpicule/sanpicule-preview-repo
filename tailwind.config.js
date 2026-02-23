@@ -7,14 +7,18 @@ export default {
   theme: {
     extend: {
       colors: {
-        dark: '#111827', // gray-900
-        light: '#F9FAFB', // gray-50
-        accent: '#6B7280', // gray-500
-        primary: '#9CA3AF', // gray-400
+        cream: '#EDEAE2',
+        parchment: '#E4E0D6',
+        dark: '#1A1917',
+        light: '#F9F7F3',
+        muted: '#7A7570',
+        warm: '#CAC5BB',
+        accent: '#6B7280',
+        primary: '#9CA3AF',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
-        serif: ['Inter', 'sans-serif'],
+        serif: ['"Playfair Display"', 'serif'],
       },
       height: {
         'screen-dynamic': '100dvh',

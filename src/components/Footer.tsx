@@ -1,10 +1,8 @@
 import { motion } from 'framer-motion';
 import { Mail, Twitter, Instagram, Github, ArrowUp } from 'lucide-react';
 import { profileData } from '@/lib/data';
-import { useIsHoverable } from '../hooks/useIsHoverable';
 
 const Footer = () => {
-  const isHoverable = useIsHoverable();
   const currentYear = new Date().getFullYear();
 
   const navItems = ['Home', 'About', 'Skills', 'Portfolio', 'Contact'];
@@ -15,88 +13,67 @@ const Footer = () => {
     { icon: Mail, href: `mailto:${profileData.contact.email}`, name: 'Email' },
   ];
 
-  const scrollToTop = () => {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const containerVariants = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.5, staggerChildren: 0.1 } }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: { opacity: 1, y: 0 }
-  };
-
-  const socialLinkHover = isHoverable ? { scale: 1.1, y: -5, boxShadow: '0px 10px 20px rgba(56, 189, 248, 0.2)' } : {};
-  const scrollToTopHover = isHoverable ? { scale: 1.1, backgroundColor: 'rgb(56 189 248)' } : {};
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
   return (
-    <footer className="relative bg-gray-100 pt-20 pb-10 overflow-hidden border-t border-gray-200">
-      <motion.div 
-        className="container-max text-center"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {/* Logo */}
-        <motion.a href="#home" className="inline-block mb-8" variants={itemVariants}>
-          <img src="/icon.png" alt="Logo" className="h-12 w-12 mx-auto rounded-md" />
-        </motion.a>
+    <footer className="bg-dark text-light py-16 px-6 md:px-12 overflow-hidden">
+      <div className="container-max">
+        <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <span className="w-2.5 h-2.5 rounded-full bg-light inline-block" />
+              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-light/80">Sanshiro Hikawa</span>
+            </div>
+            <p className="text-xs text-light/40 max-w-xs leading-relaxed">
+              Frontend & Backend Developer.<br />
+              Crafting meaningful digital experiences.
+            </p>
+          </div>
 
-        {/* Quick Links */}
-        <motion.nav className="flex justify-center flex-wrap gap-x-6 gap-y-2 mb-8" variants={itemVariants}>
-          {navItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-gray-500 hover:text-dark hover:underline underline-offset-4 transition-colors duration-300"
-            >
-              {item}
-            </a>
-          ))}
-        </motion.nav>
+          <nav className="flex flex-wrap gap-x-8 gap-y-3">
+            {navItems.map(item => (
+              <a
+                key={item}
+                href={`#${item.toLowerCase()}`}
+                className="text-xs text-light/50 hover:text-light transition-colors tracking-widest uppercase"
+              >
+                {item}
+              </a>
+            ))}
+          </nav>
+        </div>
 
-        {/* Social Links */}
-        <motion.div className="flex justify-center space-x-4 mb-10" variants={itemVariants}>
-          {socialLinks.map(({ icon: Icon, href, name }) => (
-            href && (
+        <div className="border-t border-light/10 pt-8 flex items-center justify-between gap-4 flex-wrap">
+          <p className="text-xs text-light/30">© {currentYear} Sanshiro Hikawa. All Rights Reserved.</p>
+
+          <div className="flex items-center gap-3">
+            {socialLinks.map(({ icon: Icon, href, name }) => href && (
               <motion.a
                 key={name}
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-12 h-12 bg-white rounded-full flex items-center justify-center text-gray-500 hover:text-dark transition-all duration-300 border"
-                whileHover={socialLinkHover}
+                className="w-9 h-9 rounded-full border border-light/20 flex items-center justify-center text-light/40 hover:text-light hover:border-light/50 transition-all"
+                whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 title={name}
               >
-                <Icon size={22} />
+                <Icon size={14} />
               </motion.a>
-            )
-          ))}
-        </motion.div>
+            ))}
 
-        {/* Copyright */}
-        <motion.p className="text-gray-500 text-sm" variants={itemVariants}>
-          © {currentYear} MyPortfolio. All Rights Reserved.
-        </motion.p>
-      </motion.div>
-
-      {/* Scroll to Top Button */}
-      <motion.button
-        onClick={scrollToTop}
-        className="absolute bottom-8 right-8 w-12 h-12 bg-dark/80 rounded-full flex items-center justify-center text-light shadow-lg hover:bg-dark"
-        whileHover={scrollToTopHover}
-        whileTap={{ scale: 0.95 }}
-        initial={{ opacity: 0, scale: 0 }}
-        animate={{ opacity: 1, scale: 1, transition: { delay: 0.5 } }}
-        title="Scroll to top"
-      >
-        <ArrowUp size={24} />
-      </motion.button>
+            <motion.button
+              onClick={scrollToTop}
+              className="w-9 h-9 rounded-full bg-light/10 flex items-center justify-center text-light hover:bg-light/20 transition-colors ml-2"
+              whileHover={{ scale: 1.1, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              title="Scroll to top"
+            >
+              <ArrowUp size={14} />
+            </motion.button>
+          </div>
+        </div>
+      </div>
     </footer>
   );
 };

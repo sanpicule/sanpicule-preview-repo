@@ -9,7 +9,6 @@ const Scene = () => {
         <OrbitControls enableZoom={false} autoRotate />
         <ambientLight intensity={1} />
         <directionalLight position={[3, 5, 2]} />
-        {/* @ts-expect-error @react-three/drei Sphere type incompatibility with @types/react 18.3.x */}
         <Sphere args={[1, 100, 200]} scale={2.5}>
           <MeshDistortMaterial
             color="#38BDF8"

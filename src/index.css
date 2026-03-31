@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,800;0,900;1,700;1,800;1,900&family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,69 +7,70 @@
 @layer base {
   body {
     font-family: 'Inter', sans-serif;
-    background-color: #EDEAE2;
-    color: #1A1917;
+    background-color: #090B0F;
+    color: #E6EDF3;
     overflow-x: hidden;
     position: relative;
   }
-
-  html {
-    scroll-behavior: smooth;
-  }
+  html { scroll-behavior: smooth; }
 }
 
 @layer components {
-  .section-padding {
-    @apply py-16 px-6 sm:py-24 sm:px-8 lg:px-12;
-  }
+  .section-padding { @apply py-16 px-6 sm:py-24 sm:px-8 lg:px-12; }
+  .container-max { @apply max-w-7xl mx-auto; }
+  .glass-card { @apply bg-surface border border-warm rounded-2xl; }
+  .h-screen-dynamic { height: 100vh; height: calc(var(--vh, 1vh) * 100); }
+  .min-h-screen-dynamic { min-height: 100vh; min-height: calc(var(--vh, 1vh) * 100); }
 
-  .container-max {
-    @apply max-w-7xl mx-auto;
-  }
-
-  .glass-card {
-    @apply bg-parchment border border-warm rounded-2xl;
-  }
-
-  .h-screen-dynamic {
-    height: 100vh;
-    height: calc(var(--vh, 1vh) * 100);
-  }
-
-  .min-h-screen-dynamic {
-    min-height: 100vh;
-    min-height: calc(var(--vh, 1vh) * 100);
-  }
-
-  .btn { @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-full transition-all duration-300; }
-  .btn-primary { @apply bg-dark text-light hover:bg-dark/80; }
-  .btn-secondary { @apply bg-parchment text-dark border border-warm hover:bg-warm; }
+  .btn { @apply inline-flex items-center justify-center gap-2 px-6 py-3 font-semibold transition-all duration-300; }
+  .btn-primary { @apply bg-accent text-cream hover:bg-accent/90; }
+  .btn-secondary { @apply bg-surface text-ntext border border-warm hover:border-accent/50; }
   .btn-icon { @apply w-12 h-12 flex items-center justify-center rounded-full; }
-  .tag { @apply px-3 py-1 bg-cream text-dark text-xs font-medium rounded-full border border-warm; }
+  .tag { @apply px-3 py-1 bg-surface text-ntext text-xs font-medium rounded-full border border-warm; }
+  .divider { @apply border-t border-warm; }
 
-  /* Warm divider */
-  .divider {
-    @apply border-t border-warm;
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(28, 36, 51, 0.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(28, 36, 51, 0.5) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  .accent-text {
+    color: #00D4C8;
+    text-shadow: 0 0 40px rgba(0, 212, 200, 0.35);
+  }
+
+  .accent-glow {
+    box-shadow: 0 0 25px rgba(0, 212, 200, 0.2);
+  }
+
+  .card-hover {
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  }
+  .card-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(0, 212, 200, 0.3);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
   }
 }
 
-/* Custom scrollbar */
-::-webkit-scrollbar { width: 6px; }
-::-webkit-scrollbar-track { background: #EDEAE2; }
-::-webkit-scrollbar-thumb { background: #CAC5BB; border-radius: 3px; }
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: #090B0F; }
+::-webkit-scrollbar-thumb { background: #1C2433; border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: #00D4C8; }
 
-/* Cursor styles */
 .custom-cursor {
-  width: 12px; height: 12px;
-  background: #1A1917;
+  width: 8px; height: 8px;
+  background: #00D4C8;
   border-radius: 50%;
   position: fixed; pointer-events: none; z-index: 9999;
   transform: translate(-50%, -50%);
   transition: width 0.3s, height 0.3s, background 0.3s;
 }
 .cursor-follower {
-  width: 36px; height: 36px;
-  border: 1.5px solid #1A1917;
+  width: 32px; height: 32px;
+  border: 1px solid rgba(0, 212, 200, 0.4);
   border-radius: 50%;
   position: fixed; pointer-events: none; z-index: 9998;
   transform: translate(-50%, -50%);

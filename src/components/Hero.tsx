@@ -2,26 +2,23 @@ import { useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Github, Twitter } from 'lucide-react';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const stats = [
-  { value: 4, suffix: '+', label: 'Years Frontend' },
-  { value: 2, suffix: '+', label: 'Years Backend' },
-  { value: 3, suffix: '', label: 'Products Built' },
-  { value: 100, suffix: '%', label: 'Dedication' },
+  { value: 4, suffix: '+', label: 'FRONTEND EXP' },
+  { value: 2, suffix: '+', label: 'BACKEND EXP' },
+  { value: 3, suffix: '', label: 'PRODUCTS BUILT' },
 ];
 
 const Hero = () => {
   const sectionRef = useRef<HTMLElement>(null);
   const statsRef = useRef<HTMLDivElement>(null);
-  const headingRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!sectionRef.current) return;
     const ctx = gsap.context(() => {
-      // Stats counter
       stats.forEach((stat, i) => {
         const el = document.querySelector(`[data-stat="${i}"]`);
         if (!el) return;
@@ -41,9 +38,8 @@ const Hero = () => {
         );
       });
 
-      // Parallax on image
       gsap.to('.hero-portrait', {
-        yPercent: -15,
+        yPercent: -12,
         ease: 'none',
         scrollTrigger: {
           trigger: sectionRef.current,
@@ -58,7 +54,7 @@ const Hero = () => {
 
   const container = {
     hidden: { opacity: 0 },
-    show: { opacity: 1, transition: { staggerChildren: 0.12, delayChildren: 0.3 } },
+    show: { opacity: 1, transition: { staggerChildren: 0.1, delayChildren: 0.3 } },
   };
   const item = {
     hidden: { opacity: 0, y: 40 },
@@ -66,117 +62,170 @@ const Hero = () => {
   };
 
   return (
-    <section id="home" ref={sectionRef} className="min-h-screen relative overflow-hidden bg-cream pt-24 pb-12 px-6 md:px-12">
-      {/* Background decorative lines */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-1/3 left-0 w-full h-px bg-warm/40" />
-        <div className="absolute top-2/3 left-0 w-full h-px bg-warm/40" />
-        <div className="absolute left-1/3 top-0 h-full w-px bg-warm/30" />
-        <div className="absolute left-2/3 top-0 h-full w-px bg-warm/30" />
+    <section
+      id="home"
+      ref={sectionRef}
+      className="min-h-screen relative overflow-hidden bg-cream pt-24 pb-12 px-6 md:px-12"
+    >
+      {/* Grid background */}
+      <div className="absolute inset-0 grid-bg pointer-events-none" />
+
+      {/* Subtle radial gradient for depth */}
+      <div className="absolute inset-0 pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-[600px] h-[600px] bg-accent/[0.03] rounded-full blur-[120px]" />
+        <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-accent/[0.02] rounded-full blur-[100px]" />
       </div>
 
       <div className="container-max relative z-10">
-        <div className="grid lg:grid-cols-12 gap-6 lg:gap-0 min-h-[85vh] items-center">
+        <div className="grid lg:grid-cols-12 gap-8 lg:gap-0 min-h-[85vh] items-center">
 
-          {/* Left Column: Title */}
+          {/* Left Column: All text content */}
           <motion.div
-            className="lg:col-span-6 flex flex-col justify-center"
+            className="lg:col-span-7 flex flex-col justify-center"
             variants={container}
             initial="hidden"
             animate="show"
           >
-            <motion.p variants={item} className="text-sm tracking-[0.25em] text-muted uppercase mb-4">
-              Frontend & Backend Developer
+            <motion.p
+              variants={item}
+              className="text-[11px] tracking-[0.3em] text-muted uppercase mb-6 flex items-center gap-3"
+            >
+              <span className="w-8 h-px bg-accent inline-block" />
+              Frontend &amp; Backend Developer
             </motion.p>
 
-            <motion.div variants={item} ref={headingRef}>
-              <h1 className="font-serif font-black leading-[0.95] tracking-tight text-dark">
-                <span className="block text-4xl md:text-5xl lg:text-6xl italic text-muted font-bold">Hey. I'm Sanshiro,</span>
-                <span className="block text-6xl md:text-8xl lg:text-9xl">A FULL</span>
-                <span className="block text-6xl md:text-8xl lg:text-9xl italic">&amp; Stack</span>
-                <span className="block text-6xl md:text-8xl lg:text-9xl">ENGINEER</span>
+            <motion.div variants={item}>
+              <h1 className="font-serif font-black leading-[0.92] tracking-tight">
+                <span className="block text-4xl md:text-5xl lg:text-6xl text-muted font-bold italic mb-1">
+                  Hey. I&apos;m Sanshiro,
+                </span>
+                <span className="block text-6xl md:text-8xl lg:text-9xl text-ntext">A FULL</span>
+                <span className="block text-6xl md:text-8xl lg:text-9xl text-ntext italic">&amp; Stack</span>
+                <span className="block text-6xl md:text-8xl lg:text-9xl accent-text">ENGINEER</span>
               </h1>
             </motion.div>
 
-            <motion.p variants={item} className="mt-6 max-w-md text-sm text-muted leading-relaxed">
+            <motion.p variants={item} className="mt-8 max-w-md text-sm text-muted leading-relaxed">
               フロントエンド4年・バックエンド2年の経験を持つエンジニア。
               美しいUIと堅牢なバックエンドで、プロダクトの価値を最大化します。
             </motion.p>
 
-            <motion.div variants={item} className="mt-8 flex gap-4 flex-wrap">
-              <motion.a
-                href="#contact"
-                className="inline-flex items-center gap-2 bg-dark text-light px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-dark/80 transition-colors"
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.97 }}
+            {/* Social icons */}
+            <motion.div variants={item} className="mt-6 flex items-center gap-5">
+              <a
+                href="https://github.com/sanpicule"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-accent transition-colors duration-200"
+                aria-label="GitHub"
               >
-                CONTACT ME <ArrowRight size={16} />
-              </motion.a>
+                <Github size={18} />
+              </a>
+              <a
+                href="https://twitter.com/SanpiTech240"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-accent transition-colors duration-200"
+                aria-label="Twitter/X"
+              >
+                <Twitter size={18} />
+              </a>
+              <a
+                href="https://zenn.dev/sanpi34"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted hover:text-accent transition-colors duration-200 text-sm font-bold tracking-wide"
+                aria-label="Zenn"
+              >
+                Zenn
+              </a>
+            </motion.div>
+
+            {/* Stats */}
+            <motion.div
+              ref={statsRef}
+              variants={item}
+              className="mt-8 flex items-center gap-0"
+            >
+              {stats.map((stat, i) => (
+                <div
+                  key={stat.label}
+                  className={`pr-6 ${i < stats.length - 1 ? 'border-r border-warm mr-6' : ''}`}
+                >
+                  <p className="font-serif font-black text-3xl md:text-4xl text-ntext leading-none">
+                    <span data-stat={i}>{stat.value}</span>{stat.suffix}
+                  </p>
+                  <p className="text-[10px] tracking-[0.2em] text-muted uppercase mt-1">{stat.label}</p>
+                </div>
+              ))}
+            </motion.div>
+
+            {/* CTA Buttons */}
+            <motion.div variants={item} className="mt-10 flex gap-4 flex-wrap">
               <motion.a
                 href="#portfolio"
-                className="inline-flex items-center gap-2 border border-dark text-dark px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-dark hover:text-light transition-colors"
+                className="inline-flex items-center gap-2 bg-accent text-cream px-7 py-3.5 text-sm font-bold tracking-wider uppercase hover:bg-accent/90 transition-colors accent-glow"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
               >
-                VIEW WORK
+                EXPLORE WORK <ArrowRight size={14} />
+              </motion.a>
+              <motion.a
+                href="#contact"
+                className="inline-flex items-center gap-2 border border-warm text-ntext px-7 py-3.5 text-sm font-bold tracking-wider uppercase hover:border-accent/50 hover:text-accent transition-all"
+                whileHover={{ scale: 1.02 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                CONTACT ME
               </motion.a>
             </motion.div>
           </motion.div>
 
-          {/* Center Column: Video */}
+          {/* Right Column: Portrait */}
           <motion.div
-            className="lg:col-span-3 flex items-center justify-center"
-            initial={{ opacity: 0, scale: 0.85 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] as const, delay: 0.5 }}
+            className="lg:col-span-5 flex items-center justify-center lg:justify-end"
+            initial={{ opacity: 0, x: 40 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}
           >
-            <div className="relative">
-              <div className="w-52 h-52 md:w-72 md:h-72 lg:w-80 lg:h-80 rounded-full overflow-hidden border-4 border-warm hero-portrait bg-dark">
+            <div className="relative hero-portrait">
+              {/* Outer glow frame */}
+              <div className="absolute -inset-3 border border-accent/20 rounded-none" />
+              <div className="absolute -inset-6 border border-accent/10 rounded-none" />
+
+              {/* Video container */}
+              <div className="w-64 h-80 md:w-80 md:h-[420px] lg:w-96 lg:h-[500px] overflow-hidden border border-warm bg-surface relative">
                 <video
                   src="/videos/hero-video.mp4"
                   autoPlay
                   loop
                   muted
                   playsInline
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover opacity-90"
                 />
+                {/* Overlay gradient */}
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-cream/40" />
               </div>
-              {/* Orbit decoration */}
-              <motion.div
-                className="absolute inset-0 rounded-full border-2 border-dashed border-warm/60"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 25, repeat: Infinity, ease: 'linear' }}
-                style={{ scale: 1.12 }}
-              />
-            </div>
-          </motion.div>
 
-          {/* Right Column: Stats */}
-          <motion.div
-            ref={statsRef}
-            className="lg:col-span-3 flex flex-col justify-center gap-6 lg:pl-8"
-            variants={container}
-            initial="hidden"
-            animate="show"
-          >
-            {stats.map((stat, i) => (
+              {/* Corner decorations */}
+              <div className="absolute top-0 right-0 w-8 h-8 border-t-2 border-r-2 border-accent" />
+              <div className="absolute bottom-0 left-0 w-8 h-8 border-b-2 border-l-2 border-accent" />
+
+              {/* Floating label */}
               <motion.div
-                key={stat.label}
-                variants={item}
-                className="border-b border-warm pb-5"
+                className="absolute -bottom-4 -right-4 bg-accent text-cream text-[10px] font-bold tracking-widest px-4 py-2 uppercase"
+                animate={{ y: [0, -4, 0] }}
+                transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
               >
-                <p className="font-serif font-black text-4xl md:text-5xl text-dark leading-none">
-                  <span data-stat={i}>{stat.value}</span>{stat.suffix}
-                </p>
-                <p className="text-xs tracking-widest text-muted uppercase mt-1">{stat.label}</p>
+                AVAILABLE FOR HIRE
               </motion.div>
-            ))}
+            </div>
           </motion.div>
         </div>
 
         {/* Services strip */}
         <motion.div
-          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-warm mt-12 border border-warm rounded-2xl overflow-hidden"
+          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-warm mt-16 border border-warm overflow-hidden"
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1, duration: 0.7, ease: [0.22, 1, 0.36, 1] as const }}
@@ -187,8 +236,8 @@ const Hero = () => {
             { title: 'RESPONSIVE UI', desc: 'あらゆるデバイスに最適化' },
             { title: 'UI DESIGN', desc: 'Figmaでのデザインも対応可能' },
           ].map((service) => (
-            <div key={service.title} className="bg-cream p-5 md:p-6">
-              <p className="text-[11px] font-bold tracking-widest text-dark uppercase mb-2">{service.title}</p>
+            <div key={service.title} className="bg-cream p-5 md:p-6 hover:bg-parchment transition-colors group">
+              <p className="text-[11px] font-bold tracking-widest text-accent uppercase mb-2 group-hover:text-accent">{service.title}</p>
               <p className="text-xs text-muted leading-relaxed">{service.desc}</p>
             </div>
           ))}
@@ -209,7 +258,7 @@ const Hero = () => {
           onClick={() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' })}
         >
           <span className="text-[10px] tracking-[0.3em] text-muted uppercase">Scroll</span>
-          <div className="w-px h-8 bg-muted/50" />
+          <div className="w-px h-10 bg-gradient-to-b from-muted/50 to-accent/50" />
         </motion.div>
       </motion.div>
     </section>

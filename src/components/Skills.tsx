@@ -26,6 +26,14 @@ const getLevelWidth = (level: string) => {
   return '40%';
 };
 
+const getLevelLabel = (level: string) => {
+  const years = parseInt(level.match(/\d+/)?.[0] || '1');
+  if (years >= 4) return 'EXPERT';
+  if (years === 3) return 'ADVANCED';
+  if (years === 2) return 'INTERMEDIATE';
+  return 'PROFICIENT';
+};
+
 const Skills = ({ skills }: SkillsProps) => {
   const [selectedCategory, setSelectedCategory] = useState(skillCategories[0].category);
   const sectionRef = useRef<HTMLElement>(null);
@@ -50,8 +58,11 @@ const Skills = ({ skills }: SkillsProps) => {
       <div className="container-max">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
           <div>
-            <p className="text-[11px] tracking-[0.25em] text-muted uppercase mb-3">Technical Skills</p>
-            <h2 className="skills-heading font-serif font-black text-5xl md:text-6xl text-dark leading-none">Skills</h2>
+            <p className="text-[11px] tracking-[0.25em] text-muted uppercase mb-3 flex items-center gap-3">
+              <span className="w-6 h-px bg-accent inline-block" />
+              Technical Skills
+            </p>
+            <h2 className="skills-heading font-serif font-black text-5xl md:text-6xl text-ntext leading-none">Skills</h2>
           </div>
           <p className="text-xs text-muted max-w-xs leading-relaxed">
             主要な技術スタックをご覧ください。詳しくはスキルシートをご参照ください。
@@ -64,10 +75,10 @@ const Skills = ({ skills }: SkillsProps) => {
             <motion.button
               key={cat.category}
               onClick={() => setSelectedCategory(cat.category)}
-              className={`flex items-center gap-2 py-2 px-5 rounded-full text-xs font-semibold tracking-wider transition-all duration-300 border
+              className={`flex items-center gap-2 py-2 px-5 text-xs font-semibold tracking-wider transition-all duration-300 border
                 ${selectedCategory === cat.category
-                  ? 'bg-dark text-light border-dark'
-                  : 'bg-cream text-dark border-warm hover:border-dark'
+                  ? 'bg-accent text-cream border-accent'
+                  : 'bg-surface text-muted border-warm hover:border-accent/30 hover:text-ntext'
                 }`}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.97 }}
@@ -91,20 +102,25 @@ const Skills = ({ skills }: SkillsProps) => {
             {filteredSkills.map((skill, i) => (
               <motion.div
                 key={skill.name}
-                className="bg-cream border border-warm rounded-2xl p-5 group hover:border-dark/30 transition-colors"
+                className="bg-surface border border-warm p-5 group hover:border-accent/30 transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06 }}
                 whileHover={{ y: -2 }}
               >
-                <div className="flex items-center gap-3 mb-3">
-                  <img src={skill.icon} className="w-8 h-8 object-contain" alt={skill.name} />
-                  <h4 className="font-semibold text-dark text-sm">{skill.name}</h4>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center gap-3">
+                    <img src={skill.icon} className="w-8 h-8 object-contain" alt={skill.name} />
+                    <h4 className="font-semibold text-ntext text-sm">{skill.name}</h4>
+                  </div>
+                  <span className="text-[9px] font-bold tracking-widest text-accent border border-accent/30 px-2 py-0.5">
+                    {getLevelLabel(skill.level)}
+                  </span>
                 </div>
                 <p className="text-[11px] text-muted mb-3 leading-relaxed">{skill.level}</p>
-                <div className="w-full bg-warm rounded-full h-1 overflow-hidden">
+                <div className="w-full bg-warm/30 h-px overflow-hidden">
                   <motion.div
-                    className="bg-dark h-1 rounded-full"
+                    className="bg-accent h-px"
                     initial={{ width: 0 }}
                     whileInView={{ width: getLevelWidth(skill.level) }}
                     transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 + i * 0.05 }}

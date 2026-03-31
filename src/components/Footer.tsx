@@ -21,7 +21,7 @@ const Footer = () => {
         <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-2.5 h-2.5 rounded-full bg-light inline-block" />
+              <span className="w-2.5 h-2.5 rounded-full bg-accent inline-block" />
               <span className="text-xs font-semibold tracking-[0.2em] uppercase text-light/80">Sanshiro Hikawa</span>
             </div>
             <p className="text-xs text-light/40 max-w-xs leading-relaxed">
@@ -53,7 +53,7 @@ const Footer = () => {
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-9 h-9 rounded-full border border-light/20 flex items-center justify-center text-light/40 hover:text-light hover:border-light/50 transition-all"
+                className="w-9 h-9 rounded-full border border-light/20 flex items-center justify-center text-light/40 hover:text-accent hover:border-accent/50 transition-all"
                 whileHover={{ scale: 1.1, y: -2 }}
                 whileTap={{ scale: 0.95 }}
                 title={name}

@@ -11,6 +11,11 @@ export interface Screenshot {
   icon?: string;
 }
 
+export interface ResultItem {
+  label: string;
+  sublabel: string;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -19,6 +24,7 @@ export interface Project {
   technologies: string[];
   duration: string;
   role: string;
+  client?: string;
   category: 'web' | 'mobile' | 'desktop' | 'other';
   type: 'work' | 'portfolio'; // 本業 or 個人開発
   demoUrl?: string;
@@ -27,6 +33,8 @@ export interface Project {
   challenge: string;
   solution: string;
   learnings: string[];
+  resultsDescription?: string;
+  resultItems?: ResultItem[];
 }
 
 export interface ContactInfo {

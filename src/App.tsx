@@ -6,9 +6,10 @@ import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
 import { profileData } from '@/lib/data';
 import { useEffect, useState } from 'react';
-import { Project } from '@/types';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
+import { Routes, Route } from 'react-router-dom';
 import Portfolio from '@/components/Portfolio';
+import ProjectDetailPage from '@/pages/ProjectDetailPage';
 import useCustomCursor from './hooks/useCustomCursor';
 
 // --- Loading Screen ---
@@ -58,7 +59,7 @@ const LoadingScreen = () => {
         exit="exit"
       >
         <motion.h1
-          className="text-xl font-semibold text-dark/50 flex overflow-hidden py-4 tracking-[0.3em]"
+          className="text-xl font-semibold text-accent/60 flex overflow-hidden py-4 tracking-[0.3em]"
           aria-label={text}
         >
           {letters.map((letter, index) => (
@@ -94,53 +95,51 @@ const LoadingScreen = () => {
 // --- Main App ---
 function App() {
   useCustomCursor();
-  const [loading, setLoading] = useState(true);
-  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [loading, setLoading] = useState(() => {
+    // ローディングアニメーションは初回訪問時のみ表示
+    return !sessionStorage.getItem('portfolioLoaded');
+  });
 
   useEffect(() => {
+    if (!loading) return;
     document.body.style.overflow = 'hidden';
     const timer = setTimeout(() => {
       setLoading(false);
+      sessionStorage.setItem('portfolioLoaded', '1');
       document.body.style.overflow = 'auto';
     }, 3000);
     return () => {
       clearTimeout(timer);
       document.body.style.overflow = 'auto';
     };
-  }, []);
+  }, [loading]);
 
-  const handleProjectSelect = (project: Project) => {
-    setSelectedProject(project);
-  };
-
-  const handleProjectClose = () => {
-    setSelectedProject(null);
-  };
+  const MainPage = () => (
+    <motion.main
+      className="min-h-screen-dynamic"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.5 }}
+    >
+      <Header />
+      <Hero />
+      <About about={profileData.about} />
+      <Skills skills={profileData.skills} />
+      <Portfolio projects={profileData.projects} />
+      <Contact contact={profileData.contact} />
+      <Footer />
+    </motion.main>
+  );
 
   return (
     <AnimatePresence mode="wait">
       {loading ? (
         <LoadingScreen />
       ) : (
-        <motion.main
-          className="min-h-screen-dynamic"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Header />
-          <Hero />
-          <About about={profileData.about} />
-          <Skills skills={profileData.skills} />
-          <Portfolio
-            projects={profileData.projects}
-            selectedProject={selectedProject}
-            onProjectSelect={handleProjectSelect}
-            onClose={handleProjectClose}
-          />
-          <Contact contact={profileData.contact} />
-          <Footer />
-        </motion.main>
+        <Routes>
+          <Route path="/" element={<MainPage />} />
+          <Route path="/project/:id" element={<ProjectDetailPage />} />
+        </Routes>
       )}
     </AnimatePresence>
   );

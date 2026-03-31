@@ -39,7 +39,7 @@ const Contact = ({ contact }: ContactProps) => {
         <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
           <div>
             <p className="text-[11px] tracking-[0.25em] text-muted uppercase mb-3">Get In Touch</p>
-            <h2 className="contact-heading font-serif font-black text-5xl md:text-6xl text-dark leading-none">Contact</h2>
+            <h2 className="contact-heading font-serif font-black text-5xl md:text-6xl text-ntext leading-none">Contact</h2>
           </div>
           <p className="text-xs text-muted max-w-sm leading-relaxed">
             新しいプロジェクトのご相談や、お問い合わせがございましたら、
@@ -57,7 +57,7 @@ const Contact = ({ contact }: ContactProps) => {
           >
             <div>
               <h3 className="text-xs font-semibold tracking-widest text-muted uppercase mb-4">Connect</h3>
-              <p className="text-sm text-dark/70 leading-relaxed mb-6">
+              <p className="text-sm text-ntext/70 leading-relaxed mb-6">
                 下記のフォームまたはSNSからご連絡ください。お仕事のご依頼、技術相談、何でもお気軽にどうぞ。
               </p>
 
@@ -67,7 +67,7 @@ const Contact = ({ contact }: ContactProps) => {
                     href={contact.twitter}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-dark hover:bg-dark hover:text-light hover:border-dark transition-all"
+                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-muted hover:bg-accent hover:text-cream hover:border-accent transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -79,7 +79,7 @@ const Contact = ({ contact }: ContactProps) => {
                     href={contact.instagram}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-dark hover:bg-dark hover:text-light hover:border-dark transition-all"
+                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-muted hover:bg-accent hover:text-cream hover:border-accent transition-all"
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -89,11 +89,11 @@ const Contact = ({ contact }: ContactProps) => {
               </div>
             </div>
 
-            <div className="bg-cream rounded-2xl border border-warm p-6">
+            <div className="bg-surface rounded-2xl border border-warm p-6">
               <p className="text-[10px] tracking-widest text-muted uppercase mb-2">Email</p>
               <a
                 href={`mailto:${contact.email}`}
-                className="text-sm font-medium text-dark hover:underline underline-offset-4 transition-all"
+                className="text-sm font-medium text-ntext hover:underline underline-offset-4 transition-all"
               >
                 {contact.email}
               </a>

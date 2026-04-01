@@ -102,7 +102,7 @@ const Skills = ({ skills }: SkillsProps) => {
             {filteredSkills.map((skill, i) => (
               <motion.div
                 key={skill.name}
-                className="bg-surface border border-warm p-5 group hover:border-accent/30 transition-all duration-300"
+                className="bg-gray-50 border border-warm p-5 group hover:border-accent/30 transition-all duration-300"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.06 }}
@@ -111,13 +111,13 @@ const Skills = ({ skills }: SkillsProps) => {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center gap-3">
                     <img src={skill.icon} className="w-8 h-8 object-contain" alt={skill.name} />
-                    <h4 className="font-semibold text-ntext text-sm">{skill.name}</h4>
+                    <h4 className="font-semibold text-gray-800 text-sm">{skill.name}</h4>
                   </div>
                   <span className="text-[9px] font-bold tracking-widest text-accent border border-accent/30 px-2 py-0.5">
                     {getLevelLabel(skill.level)}
                   </span>
                 </div>
-                <p className="text-[11px] text-muted mb-3 leading-relaxed">{skill.level}</p>
+                <p className="text-[11px] text-gray-500 mb-3 leading-relaxed">{skill.level}</p>
                 <div className="w-full bg-warm/30 h-px overflow-hidden">
                   <motion.div
                     className="bg-accent h-px"

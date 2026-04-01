@@ -67,8 +67,21 @@ const Hero = () => {
       ref={sectionRef}
       className="min-h-screen relative overflow-hidden bg-cream pt-24 pb-12 px-6 md:px-12"
     >
-      {/* Grid background */}
-      <div className="absolute inset-0 grid-bg pointer-events-none" />
+      {/* SP: 動画背景 */}
+      <div className="md:hidden absolute inset-0">
+        <video
+          src="/videos/hero-video.mp4"
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/70" />
+      </div>
+
+      {/* Grid background（PC用） */}
+      <div className="hidden md:block absolute inset-0 grid-bg pointer-events-none" />
 
       {/* Subtle radial gradient for depth */}
       <div className="absolute inset-0 pointer-events-none">
@@ -86,26 +99,16 @@ const Hero = () => {
             initial="hidden"
             animate="show"
           >
-            <motion.p
-              variants={item}
-              className="text-[11px] tracking-[0.3em] text-muted uppercase mb-6 flex items-center gap-3"
-            >
-              <span className="w-8 h-px bg-accent inline-block" />
-              Frontend &amp; Backend Developer
-            </motion.p>
-
             <motion.div variants={item}>
               <h1 className="font-serif font-black leading-[0.92] tracking-tight">
-                <span className="block text-4xl md:text-5xl lg:text-6xl text-muted font-bold italic mb-1">
+                <span className="block text-4xl md:text-5xl lg:text-6xl text-white md:text-muted font-bold italic mb-1">
                   Hey. I&apos;m Sanshiro,
                 </span>
-                <span className="block text-6xl md:text-8xl lg:text-9xl text-ntext">A FULL</span>
-                <span className="block text-6xl md:text-8xl lg:text-9xl text-ntext italic">&amp; Stack</span>
                 <span className="block text-6xl md:text-8xl lg:text-9xl accent-text">ENGINEER</span>
               </h1>
             </motion.div>
 
-            <motion.p variants={item} className="mt-8 max-w-md text-sm text-muted leading-relaxed">
+            <motion.p variants={item} className="mt-8 max-w-md text-sm text-white/80 md:text-muted leading-relaxed">
               フロントエンド4年・バックエンド2年の経験を持つエンジニア。
               美しいUIと堅牢なバックエンドで、プロダクトの価値を最大化します。
             </motion.p>
@@ -116,7 +119,7 @@ const Hero = () => {
                 href="https://github.com/sanpicule"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-accent transition-colors duration-200"
+                className="text-white/60 md:text-muted hover:text-accent transition-colors duration-200"
                 aria-label="GitHub"
               >
                 <Github size={18} />
@@ -125,7 +128,7 @@ const Hero = () => {
                 href="https://twitter.com/SanpiTech240"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-accent transition-colors duration-200"
+                className="text-white/60 md:text-muted hover:text-accent transition-colors duration-200"
                 aria-label="Twitter/X"
               >
                 <Twitter size={18} />
@@ -134,7 +137,7 @@ const Hero = () => {
                 href="https://zenn.dev/sanpi34"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-muted hover:text-accent transition-colors duration-200 text-sm font-bold tracking-wide"
+                className="text-white/60 md:text-muted hover:text-accent transition-colors duration-200 text-sm font-bold tracking-wide"
                 aria-label="Zenn"
               >
                 Zenn
@@ -150,12 +153,12 @@ const Hero = () => {
               {stats.map((stat, i) => (
                 <div
                   key={stat.label}
-                  className={`pr-6 ${i < stats.length - 1 ? 'border-r border-warm mr-6' : ''}`}
+                  className={`pr-6 ${i < stats.length - 1 ? 'border-r border-white/20 md:border-warm mr-6' : ''}`}
                 >
-                  <p className="font-serif font-black text-3xl md:text-4xl text-ntext leading-none">
+                  <p className="font-serif font-black text-3xl md:text-4xl text-white md:text-ntext leading-none">
                     <span data-stat={i}>{stat.value}</span>{stat.suffix}
                   </p>
-                  <p className="text-[10px] tracking-[0.2em] text-muted uppercase mt-1">{stat.label}</p>
+                  <p className="text-[10px] tracking-[0.2em] text-white/50 md:text-muted uppercase mt-1">{stat.label}</p>
                 </div>
               ))}
             </motion.div>
@@ -172,7 +175,7 @@ const Hero = () => {
               </motion.a>
               <motion.a
                 href="#contact"
-                className="inline-flex items-center gap-2 border border-warm text-ntext px-7 py-3.5 text-sm font-bold tracking-wider uppercase hover:border-accent/50 hover:text-accent transition-all"
+                className="inline-flex items-center gap-2 bg-white border border-warm text-black px-7 py-3.5 text-sm font-bold tracking-wider uppercase hover:border-accent/50 hover:text-accent transition-all"
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.97 }}
               >
@@ -181,9 +184,9 @@ const Hero = () => {
             </motion.div>
           </motion.div>
 
-          {/* Right Column: Portrait */}
+          {/* Right Column: Portrait（PC/タブレットのみ表示） */}
           <motion.div
-            className="lg:col-span-5 flex items-center justify-center lg:justify-end"
+            className="hidden md:flex lg:col-span-5 items-center justify-center lg:justify-end"
             initial={{ opacity: 0, x: 40 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.4 }}

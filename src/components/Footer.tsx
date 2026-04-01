@@ -19,17 +19,6 @@ const Footer = () => {
     <footer className="bg-dark text-light py-16 px-6 md:px-12 overflow-hidden">
       <div className="container-max">
         <div className="flex items-start justify-between mb-16 gap-8 flex-wrap">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <span className="w-2.5 h-2.5 rounded-full bg-accent inline-block" />
-              <span className="text-xs font-semibold tracking-[0.2em] uppercase text-light/80">Sanshiro Hikawa</span>
-            </div>
-            <p className="text-xs text-light/40 max-w-xs leading-relaxed">
-              Frontend & Backend Developer.<br />
-              Crafting meaningful digital experiences.
-            </p>
-          </div>
-
           <nav className="flex flex-wrap gap-x-8 gap-y-3">
             {navItems.map(item => (
               <a

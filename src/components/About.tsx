@@ -60,9 +60,7 @@ const About = ({ about }: AboutProps) => {
         {/* Large headline */}
         <div ref={headingRef} className="about-headline mb-16 overflow-hidden">
           <h2 className="font-serif font-black text-4xl md:text-6xl lg:text-7xl text-ntext leading-tight">
-            <span className="block overflow-hidden"><span className="block">CRAFTING MEANINGFUL</span></span>
-            <span className="block overflow-hidden"><span className="block">CODE <span className="italic text-accent">&amp; Intuitive</span></span></span>
-            <span className="block overflow-hidden"><span className="block">EXPERIENCES</span></span>
+            <span className="block overflow-hidden"><span className="block">ABOUT ME</span></span>
           </h2>
         </div>
 
@@ -80,11 +78,11 @@ const About = ({ about }: AboutProps) => {
                 <img
                   src="/images/profile.jpg"
                   alt="Sanshiro Hikawa"
-                  className="w-20 h-20 object-cover object-top border border-warm relative"
+                  className="w-24 h-24 md:w-40 md:h-40 object-cover object-top border border-warm relative"
                 />
               </div>
               <div>
-                <h3 className="font-bold text-ntext text-xl">{profileData.name}</h3>
+                <h3 className="font-bold text-ntext text-2xl md:text-4xl">{profileData.name}</h3>
                 <div className="mt-1">
                   {profileData.title.split(' / ').map((line, i) => (
                     <p key={i} className="text-xs text-muted">— {line}</p>

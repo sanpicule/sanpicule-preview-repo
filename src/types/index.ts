@@ -5,6 +5,15 @@ export interface Skill {
   icon?: string;
 }
 
+export interface Article {
+  id: string;
+  title: string;
+  body: string;
+  created_at: string;
+  label: number;
+  image_url: string | null;
+}
+
 export interface Screenshot {
   src: string;
   comment: string;

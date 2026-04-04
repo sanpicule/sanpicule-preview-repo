@@ -4,12 +4,14 @@ import About from '@/components/About';
 import Skills from '@/components/Skills';
 import Contact from '@/components/Contact';
 import Footer from '@/components/Footer';
+import Blog from '@/components/Blog';
 import { profileData } from '@/lib/data';
 import { useEffect, useState } from 'react';
 import { motion, AnimatePresence, Variants } from 'framer-motion';
 import { Routes, Route } from 'react-router-dom';
 import Portfolio from '@/components/Portfolio';
 import ProjectDetailPage from '@/pages/ProjectDetailPage';
+import BlogDetailPage from '@/pages/BlogDetailPage';
 import useCustomCursor from './hooks/useCustomCursor';
 
 // --- Loading Screen ---
@@ -126,6 +128,7 @@ function App() {
       <About about={profileData.about} />
       <Skills skills={profileData.skills} />
       <Portfolio projects={profileData.projects} />
+      <Blog />
       <Contact contact={profileData.contact} />
       <Footer />
     </motion.main>
@@ -139,6 +142,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/project/:id" element={<ProjectDetailPage />} />
+          <Route path="/blog/:id" element={<BlogDetailPage />} />
         </Routes>
       )}
     </AnimatePresence>

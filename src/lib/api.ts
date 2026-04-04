@@ -1,6 +1,6 @@
 import { Article } from '../types';
 
-const BASE_URL = 'https://tinypost-three.vercel.app/api';
+const BASE_URL = '/api/tinypost';
 
 const getApiKey = (): string => {
   const key = import.meta.env.VITE_TINYPOST_API_KEY;

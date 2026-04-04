@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/tinypost/:path*",
+      "destination": "https://tinypost-three.vercel.app/api/:path*"
+    }
+  ]
+}

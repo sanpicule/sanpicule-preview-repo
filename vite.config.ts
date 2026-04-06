@@ -58,9 +58,8 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/tinypost': {
-        target: 'https://tinypost-three.vercel.app/api',
+        target: 'https://tinypost-three.vercel.app',
         changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/tinypost/, ''),
       },
     },
   },

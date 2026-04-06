@@ -2,7 +2,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useEffect } from 'react';
 import { ArrowLeft } from 'lucide-react';
-import ReactMarkdown from 'react-markdown';
+import DOMPurify from 'dompurify';
 import { useArticle } from '../hooks/useArticle';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -75,19 +75,19 @@ const BlogDetailPage = () => {
                 </time>
               </header>
 
-              <div className="prose prose-sm prose-invert max-w-none
-                prose-headings:font-serif prose-headings:font-black prose-headings:text-ntext
-                prose-p:text-ntext/75 prose-p:leading-relaxed
-                prose-a:text-accent prose-a:no-underline hover:prose-a:underline
-                prose-code:text-accent prose-code:bg-surface prose-code:px-1 prose-code:py-0.5 prose-code:text-xs
-                prose-pre:bg-surface prose-pre:border prose-pre:border-warm
-                prose-blockquote:border-l-accent prose-blockquote:text-muted
-                prose-strong:text-ntext
-                prose-hr:border-warm
-                prose-li:text-ntext/75"
-              >
-                <ReactMarkdown>{article.body}</ReactMarkdown>
-              </div>
+              <div
+                className="blog-body prose prose-sm max-w-none bg-white text-black rounded-lg p-6
+                  prose-headings:font-serif prose-headings:font-black prose-headings:text-black
+                  prose-p:text-black/80 prose-p:leading-relaxed
+                  prose-a:text-accent prose-a:no-underline hover:prose-a:underline
+                  prose-code:text-pink-600 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
+                  prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-lg prose-pre:overflow-x-auto
+                  prose-blockquote:border-l-accent prose-blockquote:text-black/60
+                  prose-strong:text-black
+                  prose-hr:border-gray-200
+                  prose-li:text-black/80"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.body) }}
+              />
             </motion.article>
           )}
 

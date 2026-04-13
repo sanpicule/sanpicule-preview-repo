@@ -22,16 +22,16 @@ const BlogDetailPage = () => {
   }, [id]);
 
   return (
-    <div className="min-h-screen bg-cream text-ntext">
+    <div className="min-h-screen bg-white text-gray-900">
       <Header />
 
       <main className="pt-32 pb-24 px-6 sm:px-8 lg:px-12">
-        <div className="max-w-2xl mx-auto">
+        <div className="max-w-4xl mx-auto">
 
           {/* 戻るボタン */}
           <motion.button
             onClick={() => navigate('/#blog')}
-            className="flex items-center gap-2 text-xs text-muted hover:text-ntext transition-colors uppercase tracking-widest mb-12"
+            className="flex items-center gap-2 text-xs text-muted hover:text-gray-900 transition-colors uppercase tracking-widest mb-12"
             whileHover={{ x: -4 }}
           >
             <ArrowLeft size={14} /> Back to Blog
@@ -40,11 +40,11 @@ const BlogDetailPage = () => {
           {/* ローディング */}
           {loading && (
             <div className="space-y-4 animate-pulse">
-              <div className="h-6 bg-surface rounded w-3/4" />
-              <div className="h-3 bg-surface rounded w-24" />
+              <div className="h-6 bg-gray-200 rounded w-3/4" />
+              <div className="h-3 bg-gray-200 rounded w-24" />
               <div className="mt-10 space-y-3">
                 {[...Array(6)].map((_, i) => (
-                  <div key={i} className="h-3 bg-surface rounded" />
+                  <div key={i} className="h-3 bg-gray-200 rounded" />
                 ))}
               </div>
             </div>
@@ -62,9 +62,9 @@ const BlogDetailPage = () => {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
             >
-              <header className="mb-10 pb-8 border-b border-warm">
+              <header className="mb-10 pb-8 border-b border-gray-200">
                 <p className="text-[10px] tracking-[0.3em] text-accent uppercase mb-4">BLOG</p>
-                <h1 className="font-serif font-black text-3xl sm:text-4xl text-ntext leading-tight mb-4">
+                <h1 className="font-serif font-black text-3xl sm:text-4xl text-gray-900 leading-tight mb-4">
                   {article.title}
                 </h1>
                 <time
@@ -76,16 +76,16 @@ const BlogDetailPage = () => {
               </header>
 
               <div
-                className="blog-body prose prose-sm max-w-none bg-white text-black rounded-lg p-6
-                  prose-headings:font-serif prose-headings:font-black prose-headings:text-black
-                  prose-p:text-black/80 prose-p:leading-relaxed
+                className="blog-body prose prose-sm max-w-none
+                  prose-headings:font-serif prose-headings:font-black prose-headings:text-gray-900
+                  prose-p:text-gray-700 prose-p:leading-relaxed
                   prose-a:text-accent prose-a:no-underline hover:prose-a:underline
                   prose-code:text-pink-600 prose-code:bg-gray-100 prose-code:px-1.5 prose-code:py-0.5 prose-code:rounded prose-code:text-xs prose-code:font-mono prose-code:before:content-none prose-code:after:content-none
                   prose-pre:bg-gray-900 prose-pre:text-gray-100 prose-pre:border prose-pre:border-gray-700 prose-pre:rounded-lg prose-pre:overflow-x-auto
-                  prose-blockquote:border-l-accent prose-blockquote:text-black/60
-                  prose-strong:text-black
+                  prose-blockquote:border-l-accent prose-blockquote:text-gray-500
+                  prose-strong:text-gray-900
                   prose-hr:border-gray-200
-                  prose-li:text-black/80"
+                  prose-li:text-gray-700"
                 dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(article.body) }}
               />
             </motion.article>

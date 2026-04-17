@@ -37,7 +37,7 @@ const Hero = () => {
 
           <motion.h1
             variants={item}
-            className="font-serif font-semibold text-ntext tracking-tight leading-[1.15] text-3xl md:text-5xl lg:text-6xl break-keep"
+            className="font-serif font-semibold text-ntext tracking-tight leading-[1.2] text-2xl md:text-4xl lg:text-5xl"
           >
             <span className="block text-muted font-normal">{profileData.tagline.line1}</span>
             <span className="block text-muted font-normal">{profileData.tagline.line2}</span>

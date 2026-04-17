@@ -1,106 +1,89 @@
-import { useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Twitter, Instagram } from 'lucide-react';
+import { Twitter, Instagram, Github, Mail } from 'lucide-react';
 import ContactForm from './ContactForm';
 import { ContactInfo } from '../types';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
 
 interface ContactProps {
   contact: ContactInfo;
 }
 
 const Contact = ({ contact }: ContactProps) => {
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.from('.contact-heading', {
-        y: 60, opacity: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
+  const socials = [
+    { href: contact.github, icon: Github, name: 'GitHub' },
+    { href: contact.twitter, icon: Twitter, name: 'Twitter' },
+    { href: contact.instagram, icon: Instagram, name: 'Instagram' },
+  ].filter(s => s.href);
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.22, 1, 0.36, 1] as [number,number,number,number] } },
+    hidden: { opacity: 0, y: 24 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: [0.22, 1, 0.36, 1] as [number, number, number, number] } },
   };
 
   return (
-    <section id="contact" ref={sectionRef} className="section-padding bg-parchment overflow-hidden">
+    <section id="contact" className="section-padding bg-cream border-t border-warm">
       <div className="container-max">
-        <div className="divider mb-16" />
-
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
-          <div>
-            <p className="text-[11px] tracking-[0.25em] text-muted uppercase mb-3">Get In Touch</p>
-            <h2 className="contact-heading font-serif font-black text-5xl md:text-6xl text-ntext leading-none">Contact</h2>
+        <div className="grid md:grid-cols-12 gap-12 md:gap-16 mb-14">
+          <div className="md:col-span-4">
+            <p className="eyebrow mb-4">07 / Contact</p>
+            <h2 className="font-serif font-semibold text-ntext text-3xl md:text-4xl leading-tight">
+              お問い合わせ
+            </h2>
           </div>
-          <p className="text-xs text-muted max-w-sm leading-relaxed">
-            新しいプロジェクトのご相談や、お問い合わせがございましたら、
-            お気軽にご連絡ください。
-          </p>
+          <div className="md:col-span-8">
+            <p className="text-sm text-muted leading-[1.95] max-w-xl">
+              採用・副業・AI 導入支援のご相談、お気軽にご連絡ください。
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-2 gap-12 items-start">
+        <div className="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
           <motion.div
+            className="md:col-span-5 space-y-8"
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
-            className="space-y-8"
           >
             <div>
-              <h3 className="text-xs font-semibold tracking-widest text-muted uppercase mb-4">Connect</h3>
-              <p className="text-sm text-ntext/70 leading-relaxed mb-6">
-                下記のフォームまたはSNSからご連絡ください。お仕事のご依頼、技術相談、何でもお気軽にどうぞ。
-              </p>
-
-              <div className="flex gap-4">
-                {contact.twitter && (
-                  <motion.a
-                    href={contact.twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-muted hover:bg-accent hover:text-cream hover:border-accent transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Twitter size={16} />
-                  </motion.a>
-                )}
-                {contact.instagram && (
-                  <motion.a
-                    href={contact.instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-11 h-11 rounded-full border border-warm flex items-center justify-center text-muted hover:bg-accent hover:text-cream hover:border-accent transition-all"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Instagram size={16} />
-                  </motion.a>
-                )}
-              </div>
-            </div>
-
-            <div className="bg-surface rounded-2xl border border-warm p-6">
-              <p className="text-[10px] tracking-widest text-muted uppercase mb-2">Email</p>
+              <p className="eyebrow mb-3">Email</p>
               <a
                 href={`mailto:${contact.email}`}
-                className="text-sm font-medium text-ntext hover:underline underline-offset-4 transition-all"
+                className="inline-flex items-center gap-2 text-ntext text-lg font-medium hover:text-muted transition-colors"
               >
+                <Mail size={16} className="text-muted" />
                 {contact.email}
               </a>
+            </div>
+
+            {socials.length > 0 && (
+              <div>
+                <p className="eyebrow mb-3">Social</p>
+                <div className="flex flex-col gap-3">
+                  {socials.map(({ icon: Icon, href, name }) => (
+                    <a
+                      key={name}
+                      href={href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-3 text-sm text-muted hover:text-ntext transition-colors"
+                    >
+                      <Icon size={14} />
+                      {name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            <div className="pt-6 border-t border-warm">
+              <p className="text-xs text-muted leading-relaxed">
+                お仕事のご依頼、技術相談、AI 活用のご相談など、何でもどうぞ。
+              </p>
             </div>
           </motion.div>
 
           <motion.div
+            className="md:col-span-7"
             variants={itemVariants}
             initial="hidden"
             whileInView="visible"

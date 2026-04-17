@@ -74,7 +74,7 @@ const Skills = ({ skills }: SkillsProps) => {
                   <img
                     src={skill.icon}
                     alt={skill.name}
-                    className="w-8 h-8 object-contain mb-4 grayscale opacity-80"
+                    className="w-8 h-8 object-contain mb-4"
                   />
                 )}
                 <p className="font-medium text-ntext text-sm leading-tight">{skill.name}</p>

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ExternalLink, Github } from 'lucide-react';
+import { ExternalLink } from 'lucide-react';
 import { Project } from '../types';
 
 interface PortfolioProps {
@@ -36,16 +36,6 @@ const Portfolio = ({ projects }: PortfolioProps) => {
               viewport={{ once: true, amount: 0.15 }}
               transition={{ duration: 0.6, delay: index * 0.07, ease: [0.22, 1, 0.36, 1] }}
             >
-              {project.thumbnail && (
-                <div className="overflow-hidden bg-parchment aspect-[4/3]">
-                  <img
-                    src={project.thumbnail}
-                    alt={project.title}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
-                  />
-                </div>
-              )}
-
               <div className="p-7 flex flex-col flex-1">
                 <div className="flex items-center justify-between mb-3">
                   <p className="text-[10px] tracking-[0.25em] uppercase text-muted">
@@ -71,8 +61,8 @@ const Portfolio = ({ projects }: PortfolioProps) => {
                   )}
                 </div>
 
-                <div className="mt-6 pt-5 border-t border-warm flex items-center gap-4">
-                  {project.demoUrl && (
+                {project.demoUrl && (
+                  <div className="mt-6 pt-5 border-t border-warm">
                     <a
                       href={project.demoUrl}
                       target="_blank"
@@ -82,19 +72,8 @@ const Portfolio = ({ projects }: PortfolioProps) => {
                       <ExternalLink size={12} />
                       Visit
                     </a>
-                  )}
-                  {project.githubUrl && (
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 text-[11px] tracking-[0.15em] uppercase text-muted hover:text-ntext transition-colors"
-                    >
-                      <Github size={12} />
-                      Code
-                    </a>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             </motion.article>
           ))}

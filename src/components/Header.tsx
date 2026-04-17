@@ -12,7 +12,7 @@ const Header = () => {
     { name: 'Experience', href: `${prefix}#experience` },
     { name: 'AI', href: `${prefix}#ai` },
     { name: 'Projects', href: `${prefix}#portfolio` },
-    { name: 'Blog', href: `${prefix}#blog` },
+    { name: 'Articles', href: `${prefix}#blog` },
     { name: 'Contact', href: `${prefix}#contact` },
   ];
 

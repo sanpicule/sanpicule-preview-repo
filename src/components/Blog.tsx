@@ -19,7 +19,7 @@ const Blog = () => {
           <div className="md:col-span-4">
             <p className="eyebrow mb-4">06 / Notes</p>
             <h2 className="font-serif font-semibold text-ntext text-3xl md:text-4xl leading-tight">
-              Blog
+              Articles
             </h2>
           </div>
           <div className="md:col-span-8">

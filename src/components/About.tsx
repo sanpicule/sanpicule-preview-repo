@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Github, FileText, Rss } from 'lucide-react';
+import { Github, Rss } from 'lucide-react';
 import { profileData } from '@/lib/data';
 
 interface AboutProps {
@@ -10,7 +10,6 @@ const About = ({ about }: AboutProps) => {
   const socialLinks = [
     { name: 'GitHub', href: profileData.contact.github, icon: Github },
     { name: 'Zenn', href: 'https://zenn.dev/sanpi34', icon: Rss },
-    { name: 'Skill Sheet', href: 'https://sanpicule.github.io/my-information/skill-sheet.pdf', icon: FileText }
   ];
 
   const itemVariants = {

@@ -32,7 +32,7 @@ const BlogDetailPage = () => {
             className="flex items-center gap-2 text-[11px] text-muted hover:text-ntext transition-colors uppercase tracking-[0.2em] mb-12"
             whileHover={{ x: -4 }}
           >
-            <ArrowLeft size={12} /> Back to Blog
+            <ArrowLeft size={12} /> Back to Articles
           </motion.button>
 
           {loading && (
@@ -58,7 +58,7 @@ const BlogDetailPage = () => {
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
             >
               <header className="mb-10 pb-8 border-b border-warm">
-                <p className="text-[10px] tracking-[0.3em] text-muted uppercase mb-4">Blog</p>
+                <p className="text-[10px] tracking-[0.3em] text-muted uppercase mb-4">Articles</p>
                 <h1 className="font-serif font-semibold text-3xl sm:text-4xl text-ntext leading-tight mb-4">
                   {article.title}
                 </h1>

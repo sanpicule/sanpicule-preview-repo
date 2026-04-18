@@ -110,26 +110,26 @@ export const profileData: Profile = {
     },
   ],
   experience: [
-    // TODO: 実案件の内容に差し替え
     {
-      title: '案件 01（仮）',
-      industry: '業界を記入',
-      role: '役割を記入（例: フロントエンドリーダー）',
-      period: '2024 — 現在',
-      stack: ['React', 'TypeScript', 'NestJS'],
+      title: '社内データポータルサイト開発（受託）',
+      industry: '受託開発 / BtoB',
+      role: 'フロント・バックエンド（PG / 4名チーム）',
+      period: '2025.01 — 2025.09',
+      stack: ['Next.js', 'TypeScript', 'NestJS', 'GraphQL', 'Prisma', 'PostgreSQL'],
       summary:
-        'ここに案件の概要を一行で書いてください。担当範囲、規模感、技術的に工夫した点を短く。',
+        '社内データ活用を目的としたポータルサイトをフロントエンド・バックエンド横断で担当。Next.js + GraphQL で BFF を構築し、NestJS + gRPC によるマイクロサービス間通信と BullMQ を用いた通知処理を実装。ドメイン駆動設計でバックエンドを整え、Jest / Playwright でユニット・E2E テストも整備。',
     },
     {
-      title: '案件 02（仮）',
-      industry: '業界を記入',
-      role: '役割を記入',
-      period: '2023 — 2024',
-      stack: ['Next.js', 'TypeScript', 'AWS'],
+      title: 'アレルギー管理 Web アプリケーション開発',
+      industry: '学校給食 / ヘルスケア',
+      role: 'テックリード（TL / 7名チーム）',
+      period: '2022.12 — 2024.12',
+      stack: ['React', 'JavaScript', 'MUI', 'FastAPI', 'Python', 'MySQL'],
       summary:
-        'ここに案件の概要を一行で書いてください。担当範囲、規模感、技術的に工夫した点を短く。',
+        '学校給食向けアレルギー管理 SaaS の新規機能追加と保守を担当。React + MUI + zustand でフロント、FastAPI で API エンドポイントを実装。テックリードとしてスクラム運営・タスク管理・コードレビュー・進捗報告を主導し、チーム 7 名の開発を牽引した。',
     },
     {
+      // TODO: 実案件の内容に差し替え
       title: '案件 03（仮）',
       industry: '業界を記入',
       role: '役割を記入',

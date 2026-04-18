@@ -111,13 +111,13 @@ export const profileData: Profile = {
   ],
   experience: [
     {
-      title: 'アレルギー管理 Web アプリケーション開発',
-      industry: '学校給食 / ヘルスケア',
-      role: 'テックリード（TL / 7名チーム）',
-      period: '2022.12 — 2024.12',
-      stack: ['React', 'JavaScript', 'MUI', 'FastAPI', 'Python', 'MySQL'],
+      title: 'カスハラ対策 SaaS ＋ 認証基盤の自社開発',
+      industry: 'カスハラ対策 SaaS / 認証基盤',
+      role: 'プロジェクトリーダー（PL / チーム 3名）',
+      period: '2025.10 — 現在',
+      stack: ['React', 'TypeScript', 'FastAPI', 'Python', 'PostgreSQL', 'AWS Cognito'],
       summary:
-        '学校給食向けアレルギー管理 SaaS の新規機能追加と保守を担当。React + MUI + zustand でフロント、FastAPI で API エンドポイントを実装。テックリードとしてスクラム運営・タスク管理・コードレビュー・進捗報告を主導し、チーム 7 名の開発を牽引した。',
+        'カスタマーハラスメント対策 SaaS と認証基盤の自社開発に PL として参画。要件未定義・開発環境ゼロの立ち上げ状態から、要件整理・進捗管理・リソース管理・報告業務・急な仕様変更への対応まで推進。並行して React + FastAPI での実装、テスト、AWS へのデプロイ、Cognito を用いた認証機能の構築も担当し、チーム 3 名でリリースまで走り切った。',
     },
     {
       title: '社内データポータルサイト開発（受託）',
@@ -129,13 +129,13 @@ export const profileData: Profile = {
         '社内データ活用を目的としたポータルサイトをフロントエンド・バックエンド横断で担当。Next.js + GraphQL で BFF を構築し、NestJS + gRPC によるマイクロサービス間通信と BullMQ を用いた通知処理を実装。ドメイン駆動設計でバックエンドを整え、Jest / Playwright でユニット・E2E テストも整備。',
     },
     {
-      title: 'カスハラ対策 SaaS ＋ 認証基盤の自社開発',
-      industry: 'カスハラ対策 SaaS / 認証基盤',
-      role: 'プロジェクトリーダー（PL / チーム 3名）',
-      period: '2025.10 — 現在',
-      stack: ['React', 'TypeScript', 'FastAPI', 'Python', 'PostgreSQL', 'AWS Cognito'],
+      title: 'アレルギー管理 Web アプリケーション開発',
+      industry: '学校給食 / ヘルスケア',
+      role: 'テックリード（TL / 7名チーム）',
+      period: '2022.12 — 2024.12',
+      stack: ['React', 'JavaScript', 'MUI', 'FastAPI', 'Python', 'MySQL'],
       summary:
-        'カスタマーハラスメント対策 SaaS と認証基盤の自社開発に PL として参画。要件未定義・開発環境ゼロの立ち上げ状態から、要件整理・進捗管理・リソース管理・報告業務・急な仕様変更への対応まで推進。並行して React + FastAPI での実装、テスト、AWS へのデプロイ、Cognito を用いた認証機能の構築も担当し、チーム 3 名でリリースまで走り切った。',
+        '学校給食向けアレルギー管理 SaaS の新規機能追加と保守を担当。React + MUI + zustand でフロント、FastAPI で API エンドポイントを実装。テックリードとしてスクラム運営・タスク管理・コードレビュー・進捗報告を主導し、チーム 7 名の開発を牽引した。',
     },
   ],
   aiServices: [

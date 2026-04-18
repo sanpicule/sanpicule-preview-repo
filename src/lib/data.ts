@@ -129,14 +129,13 @@ export const profileData: Profile = {
         '社内データ活用を目的としたポータルサイトをフロントエンド・バックエンド横断で担当。Next.js + GraphQL で BFF を構築し、NestJS + gRPC によるマイクロサービス間通信と BullMQ を用いた通知処理を実装。ドメイン駆動設計でバックエンドを整え、Jest / Playwright でユニット・E2E テストも整備。',
     },
     {
-      // TODO: 実案件の内容に差し替え
-      title: '案件 03（仮）',
-      industry: '業界を記入',
-      role: '役割を記入',
-      period: '2022 — 2023',
-      stack: ['React', 'Python', 'PostgreSQL'],
+      title: 'カスハラ対策 SaaS ＋ 認証基盤の自社開発',
+      industry: 'カスハラ対策 SaaS / 認証基盤',
+      role: 'プロジェクトリーダー（PL / チーム 3名）',
+      period: '2025.10 — 現在',
+      stack: ['React', 'TypeScript', 'FastAPI', 'Python', 'PostgreSQL', 'AWS Cognito'],
       summary:
-        'ここに案件の概要を一行で書いてください。担当範囲、規模感、技術的に工夫した点を短く。',
+        'カスタマーハラスメント対策 SaaS と認証基盤の自社開発に PL として参画。要件未定義・開発環境ゼロの立ち上げ状態から、要件整理・進捗管理・リソース管理・報告業務・急な仕様変更への対応まで推進。並行して React + FastAPI での実装、テスト、AWS へのデプロイ、Cognito を用いた認証機能の構築も担当し、チーム 3 名でリリースまで走り切った。',
     },
   ],
   aiServices: [

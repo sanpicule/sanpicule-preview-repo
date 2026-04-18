@@ -21,7 +21,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative bg-cream pt-32 pb-20 px-6 md:px-12 md:pt-40 md:pb-28"
+      className="relative bg-cream pt-32 pb-20 px-6 md:px-12 md:pt-40 md:pb-28 overflow-x-hidden"
     >
       <div className="container-max">
         <motion.div
@@ -37,7 +37,7 @@ const Hero = () => {
 
           <motion.h1
             variants={item}
-            className="font-serif font-semibold text-ntext tracking-tight leading-[1.2] text-2xl md:text-4xl lg:text-5xl"
+            className="font-serif font-semibold text-ntext tracking-tight leading-[1.25] text-xl md:text-3xl lg:text-4xl"
           >
             <span className="block text-muted font-normal">{profileData.tagline.line1}</span>
             <span className="block text-muted font-normal">{profileData.tagline.line2}</span>
@@ -51,7 +51,7 @@ const Hero = () => {
             {profileData.heroLead}
           </motion.p>
 
-          <motion.div variants={item} className="mt-12 flex flex-wrap items-center gap-4">
+          <motion.div variants={item} className="mt-12 flex flex-wrap items-center gap-3">
             <a
               href="#experience"
               className="inline-flex items-center gap-2 bg-ntext text-cream px-6 py-3 text-xs tracking-[0.15em] uppercase hover:bg-ntext/85 transition-colors"
@@ -79,17 +79,14 @@ const Hero = () => {
 
           <motion.div
             variants={item}
-            className="mt-16 grid grid-cols-3 max-w-md gap-0 border-t border-warm pt-8"
+            className="mt-16 flex flex-wrap gap-x-8 gap-y-5 border-t border-warm pt-8"
           >
-            {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className={i < stats.length - 1 ? 'border-r border-warm pr-4' : 'pr-4'}
-              >
+            {stats.map((stat) => (
+              <div key={stat.label} className="min-w-0">
                 <p className="font-serif text-2xl md:text-3xl text-ntext leading-none">
                   {stat.value}
                 </p>
-                <p className="text-[10px] tracking-[0.2em] text-muted uppercase mt-2">
+                <p className="text-[10px] tracking-[0.15em] text-muted uppercase mt-2 whitespace-nowrap">
                   {stat.label}
                 </p>
               </div>

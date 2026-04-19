@@ -11,6 +11,7 @@ const skillCategories = [
   { name: 'Backend', category: 'backend' as const },
   { name: 'Cloud', category: 'database' as const },
   { name: 'Tools', category: 'tool' as const },
+  { name: 'AI', category: 'ai' as const },
 ];
 
 const Skills = ({ skills }: SkillsProps) => {

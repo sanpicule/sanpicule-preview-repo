@@ -1,7 +1,7 @@
 export interface Skill {
   name: string;
   level: string;
-  category: 'frontend' | 'backend' | 'database' | 'infrastructure' | 'tool' | 'soft';
+  category: 'frontend' | 'backend' | 'database' | 'infrastructure' | 'tool' | 'ai' | 'soft';
   icon?: string;
 }
 

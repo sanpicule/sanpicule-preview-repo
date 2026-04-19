@@ -108,6 +108,30 @@ export const profileData: Profile = {
       category: 'tool',
       icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg'
     },
+    {
+      name: 'Claude Code',
+      level: '業務・個人開発で日常利用',
+      category: 'ai',
+      icon: 'https://cdn.simpleicons.org/claude'
+    },
+    {
+      name: 'Gemini',
+      level: '業務・個人開発で利用',
+      category: 'ai',
+      icon: 'https://cdn.simpleicons.org/googlegemini'
+    },
+    {
+      name: 'GitHub Copilot',
+      level: '業務で日常利用',
+      category: 'ai',
+      icon: 'https://cdn.simpleicons.org/githubcopilot'
+    },
+    {
+      name: 'Genspark',
+      level: '副業（AI導入支援）で利用',
+      category: 'ai',
+      icon: 'https://cdn.simpleicons.org/genspark'
+    },
   ],
   experience: [
     {

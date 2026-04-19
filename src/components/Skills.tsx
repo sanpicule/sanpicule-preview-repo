@@ -71,13 +71,17 @@ const Skills = ({ skills }: SkillsProps) => {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.03 }}
               >
-                {skill.icon && (
+                {skill.iconComponent ? (
+                  <div className="w-8 h-8 flex items-center justify-center mb-4">
+                    <skill.iconComponent size={32} />
+                  </div>
+                ) : skill.icon ? (
                   <img
                     src={skill.icon}
                     alt={skill.name}
                     className="w-8 h-8 object-contain mb-4"
                   />
-                )}
+                ) : null}
                 <p className="font-medium text-ntext text-sm leading-tight">{skill.name}</p>
                 <p className="text-[11px] text-muted mt-2 leading-relaxed">{skill.level}</p>
               </motion.div>

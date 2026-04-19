@@ -1,8 +1,11 @@
+import type { ComponentType } from 'react';
+
 export interface Skill {
   name: string;
   level: string;
   category: 'frontend' | 'backend' | 'database' | 'infrastructure' | 'tool' | 'ai' | 'soft';
   icon?: string;
+  iconComponent?: ComponentType<{ size?: number | string }>;
 }
 
 export interface Article {

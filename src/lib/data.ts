@@ -1,3 +1,4 @@
+import GeminiColor from '@lobehub/icons/es/Gemini/components/Color';
 import { Profile } from '../types';
 
 export const profileData: Profile = {
@@ -118,7 +119,7 @@ export const profileData: Profile = {
       name: 'Gemini',
       level: '業務・個人開発で利用',
       category: 'ai',
-      icon: 'https://cdn.simpleicons.org/googlegemini'
+      iconComponent: GeminiColor
     },
     {
       name: 'GitHub Copilot',

@@ -1,4 +1,6 @@
+import ClaudeCodeColor from '@lobehub/icons/es/ClaudeCode/components/Color';
 import GeminiColor from '@lobehub/icons/es/Gemini/components/Color';
+import GithubCopilotMono from '@lobehub/icons/es/GithubCopilot/components/Mono';
 import { Profile } from '../types';
 
 export const profileData: Profile = {
@@ -113,7 +115,7 @@ export const profileData: Profile = {
       name: 'Claude Code',
       level: '業務・個人開発で日常利用',
       category: 'ai',
-      icon: 'https://cdn.simpleicons.org/claude'
+      iconComponent: ClaudeCodeColor
     },
     {
       name: 'Gemini',
@@ -125,7 +127,7 @@ export const profileData: Profile = {
       name: 'GitHub Copilot',
       level: '業務で日常利用',
       category: 'ai',
-      icon: 'https://cdn.simpleicons.org/githubcopilot'
+      iconComponent: GithubCopilotMono
     },
     {
       name: 'Genspark',

@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { Twitter, Instagram, Github, Mail } from 'lucide-react';
+import { Twitter, Instagram, Mail } from 'lucide-react';
 import ContactForm from './ContactForm';
 import { ContactInfo } from '../types';
 
@@ -9,7 +9,6 @@ interface ContactProps {
 
 const Contact = ({ contact }: ContactProps) => {
   const socials = [
-    { href: contact.github, icon: Github, name: 'GitHub' },
     { href: contact.twitter, icon: Twitter, name: 'Twitter' },
     { href: contact.instagram, icon: Instagram, name: 'Instagram' },
   ].filter(s => s.href);

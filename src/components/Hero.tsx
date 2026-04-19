@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { ArrowRight, Github, Rss } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { profileData } from '@/lib/data';
 
 const stats = [
@@ -64,26 +64,6 @@ const Hero = () => {
               className="inline-flex items-center gap-2 border border-ntext/80 text-ntext px-6 py-3 text-xs tracking-[0.15em] uppercase hover:bg-ntext hover:text-cream transition-colors"
             >
               Contact
-            </a>
-            <a
-              href={profileData.contact.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-muted px-2 py-3 text-xs tracking-[0.15em] uppercase hover:text-ntext transition-colors"
-              aria-label="GitHub"
-            >
-              <Github size={14} />
-              GitHub
-            </a>
-            <a
-              href="https://zenn.dev/sanpi34"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 text-muted px-2 py-3 text-xs tracking-[0.15em] uppercase hover:text-ntext transition-colors"
-              aria-label="Zenn"
-            >
-              <Rss size={14} />
-              Zenn
             </a>
           </motion.div>
 

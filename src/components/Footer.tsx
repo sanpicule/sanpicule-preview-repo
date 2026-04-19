@@ -1,4 +1,4 @@
-import { Github, Twitter, Instagram, Mail, Rss, ArrowUp } from 'lucide-react';
+import { Twitter, Instagram, Mail, ArrowUp } from 'lucide-react';
 import { profileData } from '@/lib/data';
 
 const Footer = () => {
@@ -14,8 +14,6 @@ const Footer = () => {
   ];
 
   const socialLinks = [
-    { icon: Github, href: profileData.contact.github, name: 'GitHub' },
-    { icon: Rss, href: 'https://zenn.dev/sanpi34', name: 'Zenn' },
     { icon: Twitter, href: profileData.contact.twitter, name: 'Twitter' },
     { icon: Instagram, href: profileData.contact.instagram, name: 'Instagram' },
     { icon: Mail, href: `mailto:${profileData.contact.email}`, name: 'Email' },

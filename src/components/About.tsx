@@ -35,13 +35,29 @@ const About = ({ about }: AboutProps) => {
             whileInView="visible"
             viewport={{ once: true, amount: 0.2 }}
           >
-            <div className="flex items-center gap-5 mb-10">
-              <img
-                src="/images/profile.jpg"
-                alt={profileData.name}
-                className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-warm"
-              />
-              <div>
+            <div className="flex items-start gap-5 mb-10">
+              <div className="flex flex-col items-start gap-3">
+                <img
+                  src="/images/profile.jpg"
+                  alt={profileData.name}
+                  className="w-20 h-20 md:w-24 md:h-24 object-cover object-top border border-warm"
+                />
+                <div className="flex items-center gap-4">
+                  {socialLinks.map(link => (
+                    <a
+                      key={link.name}
+                      href={link.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-1.5 text-muted hover:text-ntext transition-colors text-[11px] tracking-wider"
+                    >
+                      <link.icon className="w-3.5 h-3.5" />
+                      {link.name}
+                    </a>
+                  ))}
+                </div>
+              </div>
+              <div className="pt-1">
                 <h3 className="font-medium text-ntext text-xl md:text-2xl">{profileData.name}</h3>
                 <p className="text-xs text-muted mt-1">{profileData.title}</p>
               </div>
@@ -69,23 +85,6 @@ const About = ({ about }: AboutProps) => {
               </div>
             </div>
 
-            <div>
-              <p className="eyebrow mb-4">Links</p>
-              <div className="flex gap-6">
-                {socialLinks.map(link => (
-                  <a
-                    key={link.name}
-                    href={link.href}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-muted hover:text-ntext transition-colors text-xs tracking-wider"
-                  >
-                    <link.icon className="w-4 h-4" />
-                    {link.name}
-                  </a>
-                ))}
-              </div>
-            </div>
           </motion.div>
         </div>
       </div>

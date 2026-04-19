@@ -133,7 +133,7 @@ export const profileData: Profile = {
       name: 'Genspark',
       level: '副業（AI導入支援）で利用',
       category: 'ai',
-      icon: 'https://cdn.simpleicons.org/genspark'
+      icon: '/images/genspark-icon.svg'
     },
   ],
   experience: [

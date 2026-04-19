@@ -1,8 +1,11 @@
+import type { ComponentType } from 'react';
+
 export interface Skill {
   name: string;
-  level: string; // 経験ベースの記述
-  category: 'frontend' | 'backend' | 'database' | 'infrastructure' | 'tool' | 'soft';
+  level: string;
+  category: 'frontend' | 'backend' | 'database' | 'infrastructure' | 'tool' | 'ai' | 'soft';
   icon?: string;
+  iconComponent?: ComponentType<{ size?: number | string }>;
 }
 
 export interface Article {
@@ -35,7 +38,7 @@ export interface Project {
   role: string;
   client?: string;
   category: 'web' | 'mobile' | 'desktop' | 'other';
-  type: 'work' | 'portfolio'; // 本業 or 個人開発
+  type: 'work' | 'portfolio';
   demoUrl?: string;
   githubUrl?: string;
   screenshots: Screenshot[];
@@ -55,9 +58,32 @@ export interface ContactInfo {
   instagram?: string;
 }
 
+export interface ExperienceEntry {
+  title: string;
+  industry: string;
+  role: string;
+  period: string;
+  stack: string[];
+  summary: string;
+}
+
+export interface AiServiceEntry {
+  title: string;
+  status: 'delivered' | 'in_progress';
+  client?: string;
+  summary: string;
+  keywords: string[];
+}
+
 export interface Profile {
   name: string;
   title: string;
+  tagline: {
+    line1: string;
+    line2: string;
+    line3: string;
+  };
+  heroLead: string;
   introduction: string;
   skills: Skill[];
   projects: Project[];
@@ -82,4 +108,6 @@ export interface Profile {
       description: string;
     }[];
   };
+  experience: ExperienceEntry[];
+  aiServices: AiServiceEntry[];
 }

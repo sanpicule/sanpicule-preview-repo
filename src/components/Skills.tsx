@@ -1,132 +1,89 @@
-import { useRef, useEffect, useState } from 'react';
-import { Skill } from '../types';
-import { Code, Database, Server, Settings } from 'lucide-react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { Skill } from '../types';
 
 interface SkillsProps {
   skills: Skill[];
 }
 
 const skillCategories = [
-  { name: 'Frontend', category: 'frontend', icon: <Code className="w-4 h-4" /> },
-  { name: 'Backend & DB', category: 'backend', icon: <Server className="w-4 h-4" /> },
-  { name: 'Cloud', category: 'database', icon: <Database className="w-4 h-4" /> },
-  { name: 'Tools', category: 'tool', icon: <Settings className="w-4 h-4" /> },
+  { name: 'Frontend', category: 'frontend' as const },
+  { name: 'Backend', category: 'backend' as const },
+  { name: 'Cloud', category: 'database' as const },
+  { name: 'Tools', category: 'tool' as const },
+  { name: 'AI', category: 'ai' as const },
 ];
 
-const getLevelWidth = (level: string) => {
-  const years = parseInt(level.match(/\d+/)?.[0] || '1');
-  if (years >= 4) return '100%';
-  if (years === 3) return '80%';
-  if (years === 2) return '60%';
-  return '40%';
-};
-
-const getLevelLabel = (level: string) => {
-  const years = parseInt(level.match(/\d+/)?.[0] || '1');
-  if (years >= 4) return 'EXPERT';
-  if (years === 3) return 'ADVANCED';
-  if (years === 2) return 'INTERMEDIATE';
-  return 'PROFICIENT';
-};
-
 const Skills = ({ skills }: SkillsProps) => {
-  const [selectedCategory, setSelectedCategory] = useState(skillCategories[0].category);
-  const sectionRef = useRef<HTMLElement>(null);
-
-  useEffect(() => {
-    if (!sectionRef.current) return;
-    const ctx = gsap.context(() => {
-      gsap.from('.skills-heading', {
-        y: 60, opacity: 0, duration: 0.9, ease: 'power3.out',
-        scrollTrigger: { trigger: sectionRef.current, start: 'top 80%', once: true },
-      });
-    }, sectionRef);
-    return () => ctx.revert();
-  }, []);
-
-  const filteredSkills = skills.filter(s =>
-    s.category.trim().toLowerCase() === selectedCategory.trim().toLowerCase()
+  const [selectedCategory, setSelectedCategory] = useState<Skill['category']>(
+    skillCategories[0].category
   );
 
+  const filteredSkills = skills.filter(s => s.category === selectedCategory);
+
   return (
-    <section id="skills" ref={sectionRef} className="section-padding bg-parchment overflow-hidden">
+    <section id="skills" className="section-padding bg-cream border-t border-warm">
       <div className="container-max">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between mb-12 gap-6">
-          <div>
-            <p className="text-[11px] tracking-[0.25em] text-muted uppercase mb-3 flex items-center gap-3">
-              <span className="w-6 h-px bg-accent inline-block" />
-              Technical Skills
-            </p>
-            <h2 className="skills-heading font-serif font-black text-5xl md:text-6xl text-ntext leading-none">Skills</h2>
+        <div className="grid md:grid-cols-12 gap-12 md:gap-16 mb-14">
+          <div className="md:col-span-4">
+            <p className="eyebrow mb-4">05 / Skills</p>
+            <h2 className="font-serif font-semibold text-ntext text-3xl md:text-4xl leading-tight">
+              技術スタック
+            </h2>
           </div>
-          <p className="text-xs text-muted max-w-xs leading-relaxed">
-            主要な技術スタックをご覧ください。詳しくはスキルシートをご参照ください。
-          </p>
+          <div className="md:col-span-8">
+            <p className="text-sm text-muted leading-[1.95] max-w-xl">
+              実務・個人開発で継続的に使用している技術。詳細はスキルシートに記載しています。
+            </p>
+          </div>
         </div>
 
-        {/* Category tabs */}
         <div className="flex flex-wrap gap-2 mb-10">
           {skillCategories.map((cat) => (
-            <motion.button
+            <button
               key={cat.category}
               onClick={() => setSelectedCategory(cat.category)}
-              className={`flex items-center gap-2 py-2 px-5 text-xs font-semibold tracking-wider transition-all duration-300 border
-                ${selectedCategory === cat.category
-                  ? 'bg-accent text-cream border-accent'
-                  : 'bg-surface text-muted border-warm hover:border-accent/30 hover:text-ntext'
-                }`}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.97 }}
+              className={`px-5 py-2 text-[11px] tracking-[0.2em] uppercase transition-colors border ${
+                selectedCategory === cat.category
+                  ? 'bg-ntext text-cream border-ntext'
+                  : 'bg-cream text-muted border-warm hover:text-ntext hover:border-ntext/40'
+              }`}
             >
-              {cat.icon}
               {cat.name}
-            </motion.button>
+            </button>
           ))}
         </div>
 
-        {/* Skills grid */}
         <AnimatePresence mode="wait">
           <motion.div
             key={selectedCategory}
-            className="grid md:grid-cols-2 gap-4"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.4 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-px bg-warm border border-warm"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.25 }}
           >
             {filteredSkills.map((skill, i) => (
               <motion.div
                 key={skill.name}
-                className="bg-gray-50 border border-warm p-5 group hover:border-accent/30 transition-all duration-300"
-                initial={{ opacity: 0, y: 20 }}
+                className="bg-cream p-5 flex flex-col"
+                initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.06 }}
-                whileHover={{ y: -2 }}
+                transition={{ delay: i * 0.03 }}
               >
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-3">
-                    <img src={skill.icon} className="w-8 h-8 object-contain" alt={skill.name} />
-                    <h4 className="font-semibold text-gray-800 text-sm">{skill.name}</h4>
+                {skill.iconComponent ? (
+                  <div className="w-8 h-8 flex items-center justify-center mb-4">
+                    <skill.iconComponent size={32} />
                   </div>
-                  <span className="text-[9px] font-bold tracking-widest text-accent border border-accent/30 px-2 py-0.5">
-                    {getLevelLabel(skill.level)}
-                  </span>
-                </div>
-                <p className="text-[11px] text-gray-500 mb-3 leading-relaxed">{skill.level}</p>
-                <div className="w-full bg-warm/30 h-px overflow-hidden">
-                  <motion.div
-                    className="bg-accent h-px"
-                    initial={{ width: 0 }}
-                    whileInView={{ width: getLevelWidth(skill.level) }}
-                    transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1], delay: 0.1 + i * 0.05 }}
-                    viewport={{ once: true }}
+                ) : skill.icon ? (
+                  <img
+                    src={skill.icon}
+                    alt={skill.name}
+                    className="w-8 h-8 object-contain mb-4"
                   />
-                </div>
+                ) : null}
+                <p className="font-medium text-ntext text-sm leading-tight">{skill.name}</p>
+                <p className="text-[11px] text-muted mt-2 leading-relaxed">{skill.level}</p>
               </motion.div>
             ))}
           </motion.div>

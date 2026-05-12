@@ -1,22 +1,17 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { useLocation } from 'react-router-dom';
 
 const Header = () => {
-  const { pathname } = useLocation();
-  const isDetailPage = pathname.startsWith('/blog/');
-  const prefix = isDetailPage ? '/' : '';
-
   const navItems = [
-    { name: 'About', href: `${prefix}#about` },
-    { name: 'Experience', href: `${prefix}#experience` },
-    { name: 'AI', href: `${prefix}#ai` },
-    { name: 'Projects', href: `${prefix}#portfolio` },
-    { name: 'Articles', href: `${prefix}#blog` },
-    { name: 'Contact', href: `${prefix}#contact` },
+    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
+    { name: 'AI', href: '#ai' },
+    { name: 'Projects', href: '#portfolio' },
+    { name: 'Articles', href: '#blog' },
+    { name: 'Contact', href: '#contact' },
   ];
 
-  const logoHref = isDetailPage ? '/' : '#home';
+  const logoHref = '#home';
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -61,7 +56,7 @@ const Header = () => {
 
         <div className="flex items-center">
           <a
-            href={`${prefix}#contact`}
+            href="#contact"
             className="hidden md:inline-flex items-center gap-2 bg-ntext text-cream px-4 py-2 text-[10px] font-medium tracking-[0.2em] uppercase hover:bg-ntext/85 transition-colors"
           >
             Get in touch

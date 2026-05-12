@@ -14,7 +14,7 @@ const Hero = () => {
   return (
     <section
       id="home"
-      className="relative bg-cream min-h-screen flex items-end px-6 md:px-12 pb-28 md:pb-32 overflow-hidden"
+      className="relative bg-cream min-h-screen flex items-end px-6 md:px-12 pb-[30vh] md:pb-[28vh] overflow-hidden"
     >
       <svg
         className="absolute bottom-0 left-0 pointer-events-none text-warm"
@@ -28,7 +28,7 @@ const Hero = () => {
         <line x1="0" y1="120" x2="320" y2="60" stroke="currentColor" strokeWidth="1" />
       </svg>
 
-      <div className="absolute right-6 md:right-10 bottom-24 md:bottom-32 flex flex-col items-center gap-3 pointer-events-none">
+      <div className="absolute right-6 md:right-10 bottom-[20vh] flex flex-col items-center gap-3 pointer-events-none">
         <span
           className="text-[10px] tracking-[0.4em] text-muted uppercase"
           style={{ writingMode: 'vertical-rl' }}

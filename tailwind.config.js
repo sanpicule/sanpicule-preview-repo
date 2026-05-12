@@ -20,8 +20,8 @@ export default {
         faint: '#A3A3A3',      // tertiary text
       },
       fontFamily: {
-        sans: ['Inter', 'sans-serif'],
-        serif: ['"Space Grotesk"', 'Inter', 'sans-serif'],
+        sans: ['Inter', '"Noto Sans JP"', 'sans-serif'],
+        serif: ['"Noto Serif JP"', '"Space Grotesk"', 'serif'],
         mono: ['"JetBrains Mono"', 'monospace'],
       },
       height: { 'screen-dynamic': '100dvh' },

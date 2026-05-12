@@ -4,7 +4,8 @@ import { dirname } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const USERNAME = 'sanpi34';
-const COUNT = 12;
+const FETCH_COUNT = 48;
+const TOP_N = 5;
 const OUTPUT = fileURLToPath(new URL('../src/data/zenn-articles.json', import.meta.url));
 
 async function readExisting() {
@@ -17,7 +18,7 @@ async function readExisting() {
 }
 
 async function main() {
-  const url = `https://zenn.dev/api/articles?username=${USERNAME}&order=latest&count=${COUNT}`;
+  const url = `https://zenn.dev/api/articles?username=${USERNAME}&order=latest&count=${FETCH_COUNT}`;
   let articles;
   try {
     const res = await fetch(url, {
@@ -25,16 +26,19 @@ async function main() {
     });
     if (!res.ok) throw new Error(`Zenn API responded ${res.status}`);
     const data = await res.json();
-    articles = (data.articles ?? []).map((a) => ({
-      id: a.id,
-      slug: a.slug,
-      title: a.title,
-      emoji: a.emoji ?? '📝',
-      articleType: a.article_type,
-      publishedAt: a.published_at,
-      likedCount: a.liked_count ?? 0,
-      url: `https://zenn.dev${a.path}`,
-    }));
+    articles = (data.articles ?? [])
+      .map((a) => ({
+        id: a.id,
+        slug: a.slug,
+        title: a.title,
+        emoji: a.emoji ?? '📝',
+        articleType: a.article_type,
+        publishedAt: a.published_at,
+        likedCount: a.liked_count ?? 0,
+        url: `https://zenn.dev${a.path}`,
+      }))
+      .sort((a, b) => b.likedCount - a.likedCount)
+      .slice(0, TOP_N);
   } catch (err) {
     const existing = await readExisting();
     console.warn(`[zenn] fetch failed (${err.message}). Keeping existing snapshot of ${existing.length} articles.`);

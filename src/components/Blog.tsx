@@ -5,7 +5,8 @@ import bundled from '@/data/zenn-articles.json';
 import type { ZennArticle } from '@/types';
 
 const ZENN_USERNAME = 'sanpi34';
-const REVALIDATE_URL = `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest&count=12`;
+const TOP_N = 5;
+const REVALIDATE_URL = `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest&count=48`;
 
 const formatDate = (s: string): string => {
   const d = new Date(s);
@@ -23,25 +24,28 @@ const Blog = () => {
         const res = await fetch(REVALIDATE_URL);
         if (!res.ok) return;
         const data = await res.json();
-        const fresh: ZennArticle[] = (data.articles ?? []).map((a: {
-          id: number;
-          slug: string;
-          title: string;
-          emoji: string | null;
-          article_type: 'tech' | 'idea';
-          published_at: string;
-          liked_count: number;
-          path: string;
-        }) => ({
-          id: a.id,
-          slug: a.slug,
-          title: a.title,
-          emoji: a.emoji ?? '📝',
-          articleType: a.article_type,
-          publishedAt: a.published_at,
-          likedCount: a.liked_count ?? 0,
-          url: `https://zenn.dev${a.path}`,
-        }));
+        const fresh: ZennArticle[] = (data.articles ?? [])
+          .map((a: {
+            id: number;
+            slug: string;
+            title: string;
+            emoji: string | null;
+            article_type: 'tech' | 'idea';
+            published_at: string;
+            liked_count: number;
+            path: string;
+          }) => ({
+            id: a.id,
+            slug: a.slug,
+            title: a.title,
+            emoji: a.emoji ?? '📝',
+            articleType: a.article_type,
+            publishedAt: a.published_at,
+            likedCount: a.liked_count ?? 0,
+            url: `https://zenn.dev${a.path}`,
+          }))
+          .sort((a: ZennArticle, b: ZennArticle) => b.likedCount - a.likedCount)
+          .slice(0, TOP_N);
         if (cancelled || fresh.length === 0) return;
         const head = articles[0]?.id;
         if (fresh[0].id !== head || fresh.length !== articles.length) {

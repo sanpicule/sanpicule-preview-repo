@@ -103,25 +103,25 @@ const Blog = () => {
                   href={a.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group w-full py-6 flex items-center justify-between gap-4 md:gap-6 text-left"
+                  className="group w-full py-6 flex items-start justify-between gap-4 md:gap-6 text-left"
                 >
-                  <div className="flex items-center gap-4 md:gap-6 flex-1 min-w-0">
-                    <span aria-hidden className="text-xl md:text-2xl flex-shrink-0 leading-none">
+                  <div className="flex items-start gap-4 md:gap-6 flex-1 min-w-0">
+                    <span aria-hidden className="text-xl md:text-2xl flex-shrink-0 leading-none pt-0.5">
                       {a.emoji}
                     </span>
                     <time
                       dateTime={a.publishedAt}
-                      className="hidden md:block text-[11px] text-muted tracking-wider flex-shrink-0 w-24"
+                      className="hidden md:block text-[11px] text-muted tracking-wider flex-shrink-0 w-24 pt-1"
                     >
                       {formatDate(a.publishedAt)}
                     </time>
-                    <p className="text-sm text-ntext leading-relaxed group-hover:text-muted transition-colors truncate">
+                    <p className="text-sm text-ntext leading-relaxed group-hover:text-muted transition-colors break-words">
                       {a.title}
                     </p>
                   </div>
                   <ArrowUpRight
                     size={16}
-                    className="text-muted group-hover:text-ntext group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0"
+                    className="text-muted group-hover:text-ntext group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"
                   />
                 </a>
               </motion.li>

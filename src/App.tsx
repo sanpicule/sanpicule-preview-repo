@@ -12,7 +12,6 @@ import { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Routes, Route } from 'react-router-dom';
 import Portfolio from '@/components/Portfolio';
-import BlogDetailPage from '@/pages/BlogDetailPage';
 
 const LoadingScreen = () => (
   <motion.div
@@ -79,7 +78,6 @@ function App() {
       ) : (
         <Routes>
           <Route path="/" element={<MainPage />} />
-          <Route path="/blog/:id" element={<BlogDetailPage />} />
         </Routes>
       )}
     </AnimatePresence>

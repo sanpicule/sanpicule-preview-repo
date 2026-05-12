@@ -55,12 +55,4 @@ export default defineConfig({
       '@': path.resolve(__dirname, './src'),
     },
   },
-  server: {
-    proxy: {
-      '/api/tinypost': {
-        target: 'https://tinypost-three.vercel.app',
-        changeOrigin: true,
-      },
-    },
-  },
 })

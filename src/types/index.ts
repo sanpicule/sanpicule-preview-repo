@@ -8,13 +8,15 @@ export interface Skill {
   iconComponent?: ComponentType<{ size?: number | string }>;
 }
 
-export interface Article {
-  id: string;
+export interface ZennArticle {
+  id: number;
+  slug: string;
   title: string;
-  body: string;
-  created_at: string;
-  label: number;
-  image_url: string | null;
+  emoji: string;
+  articleType: 'tech' | 'idea';
+  publishedAt: string;
+  likedCount: number;
+  url: string;
 }
 
 export interface Screenshot {

@@ -5,8 +5,11 @@
   "type": "module",
   "scripts": {
     "dev": "vite --port 3005",
+    "predev": "node scripts/fetch-zenn-articles.mjs",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "prebuild": "node scripts/fetch-zenn-articles.mjs",
+    "preview": "vite preview",
+    "update-articles": "node scripts/fetch-zenn-articles.mjs"
   },
   "dependencies": {
     "@emailjs/browser": "^4.4.1",

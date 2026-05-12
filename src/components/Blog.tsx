@@ -1,16 +1,65 @@
+import { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
-import { useNavigate } from 'react-router-dom';
 import { ArrowUpRight } from 'lucide-react';
-import { useArticles } from '../hooks/useArticles';
+import bundled from '@/data/zenn-articles.json';
+import type { ZennArticle } from '@/types';
 
-const formatDate = (dateStr: string): string => {
-  const date = new Date(dateStr);
-  return date.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
+const ZENN_USERNAME = 'sanpi34';
+const TOP_N = 5;
+const REVALIDATE_URL = `https://zenn.dev/api/articles?username=${ZENN_USERNAME}&order=latest&count=48`;
+
+const formatDate = (s: string): string => {
+  const d = new Date(s);
+  if (Number.isNaN(d.getTime())) return '';
+  return d.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.');
 };
 
 const Blog = () => {
-  const { articles, loading, error } = useArticles();
-  const navigate = useNavigate();
+  const [articles, setArticles] = useState<ZennArticle[]>(bundled as ZennArticle[]);
+
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const res = await fetch(REVALIDATE_URL);
+        if (!res.ok) return;
+        const data = await res.json();
+        const fresh: ZennArticle[] = (data.articles ?? [])
+          .map((a: {
+            id: number;
+            slug: string;
+            title: string;
+            emoji: string | null;
+            article_type: 'tech' | 'idea';
+            published_at: string;
+            liked_count: number;
+            path: string;
+          }) => ({
+            id: a.id,
+            slug: a.slug,
+            title: a.title,
+            emoji: a.emoji ?? '📝',
+            articleType: a.article_type,
+            publishedAt: a.published_at,
+            likedCount: a.liked_count ?? 0,
+            url: `https://zenn.dev${a.path}`,
+          }))
+          .sort((a: ZennArticle, b: ZennArticle) => b.likedCount - a.likedCount)
+          .slice(0, TOP_N);
+        if (cancelled || fresh.length === 0) return;
+        const head = articles[0]?.id;
+        if (fresh[0].id !== head || fresh.length !== articles.length) {
+          setArticles(fresh);
+        }
+      } catch {
+        // Silent: keep bundled snapshot if revalidation fails.
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <section id="blog" className="section-padding bg-parchment border-t border-warm">
@@ -24,71 +73,73 @@ const Blog = () => {
           </div>
           <div className="md:col-span-8">
             <p className="text-sm text-muted leading-[1.95] max-w-xl">
-              日々の開発で得た学びや、AI・設計に関する考察を発信しています。
+              Zenn で技術記事を発信しています。記事タイトルをクリックすると Zenn で開きます。
             </p>
           </div>
         </div>
 
-        {loading && (
-          <div className="space-y-3 border-t border-warm">
-            {[...Array(3)].map((_, i) => (
-              <div key={i} className="py-6 border-b border-warm animate-pulse">
-                <div className="h-4 bg-warm rounded w-2/3 mb-2" />
-                <div className="h-3 bg-warm rounded w-24" />
-              </div>
-            ))}
-          </div>
-        )}
-
-        {error && (
-          <p className="text-xs text-red-500 border-t border-warm py-6">{error}</p>
-        )}
-
-        {!loading && !error && articles.length === 0 && (
-          <p className="text-xs text-muted border-t border-warm py-6">記事がありません。</p>
-        )}
-
-        {!loading && !error && articles.length > 0 && (
+        {articles.length === 0 ? (
+          <p className="text-xs text-muted border-t border-warm py-6">
+            まだ記事がありません。<a className="underline" href={`https://zenn.dev/${ZENN_USERNAME}`} target="_blank" rel="noopener noreferrer">Zenn を見る</a>
+          </p>
+        ) : (
           <motion.ul
             className="border-t border-warm"
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.1 }}
-            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+            variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
           >
-            {articles.map((article) => (
+            {articles.map((a) => (
               <motion.li
-                key={article.id}
+                key={a.id}
                 variants={{
                   hidden: { opacity: 0, y: 10 },
                   visible: { opacity: 1, y: 0, transition: { duration: 0.4, ease: [0.22, 1, 0.36, 1] as const } },
                 }}
                 className="border-b border-warm"
               >
-                <button
-                  onClick={() => navigate(`/blog/${article.id}`)}
-                  className="group w-full py-6 flex items-center justify-between gap-6 text-left"
+                <a
+                  href={a.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group w-full py-6 flex items-start justify-between gap-4 md:gap-6 text-left"
                 >
-                  <div className="flex items-center gap-6 flex-1 min-w-0">
+                  <div className="flex items-start gap-4 md:gap-6 flex-1 min-w-0">
+                    <span aria-hidden className="text-xl md:text-2xl flex-shrink-0 leading-none pt-0.5">
+                      {a.emoji}
+                    </span>
                     <time
-                      dateTime={article.created_at}
-                      className="text-[11px] text-muted tracking-wider flex-shrink-0 w-24"
+                      dateTime={a.publishedAt}
+                      className="hidden md:block text-[11px] text-muted tracking-wider flex-shrink-0 w-24 pt-1"
                     >
-                      {formatDate(article.created_at)}
+                      {formatDate(a.publishedAt)}
                     </time>
-                    <p className="text-sm text-ntext leading-relaxed group-hover:text-muted transition-colors truncate">
-                      {article.title}
+                    <p className="text-sm text-ntext leading-relaxed group-hover:text-muted transition-colors break-words">
+                      {a.title}
                     </p>
                   </div>
                   <ArrowUpRight
                     size={16}
-                    className="text-muted group-hover:text-ntext group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0"
+                    className="text-muted group-hover:text-ntext group-hover:-translate-y-0.5 group-hover:translate-x-0.5 transition-all flex-shrink-0 mt-1"
                   />
-                </button>
+                </a>
               </motion.li>
             ))}
           </motion.ul>
         )}
+
+        <div className="mt-10 flex justify-end">
+          <a
+            href={`https://zenn.dev/${ZENN_USERNAME}`}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 text-[11px] tracking-[0.25em] uppercase text-muted hover:text-ntext transition-colors"
+          >
+            View all on Zenn
+            <ArrowUpRight size={12} />
+          </a>
+        </div>
       </div>
     </section>
   );

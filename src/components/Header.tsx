@@ -40,9 +40,9 @@ const Header = () => {
           scrolled ? 'bg-cream/90 backdrop-blur-md border-b border-warm' : 'bg-cream/70 backdrop-blur-sm'
         }`}
       >
-        <a href={logoHref} className="flex items-center gap-2">
-          <span className="w-1.5 h-1.5 bg-ntext inline-block" />
-          <span className="text-[11px] font-medium tracking-[0.25em] text-ntext uppercase">
+        <a href={logoHref} className="flex items-center gap-2.5">
+          <span className="w-2 h-2 bg-ntext inline-block" />
+          <span className="text-[12px] md:text-[13px] font-semibold tracking-[0.25em] text-ntext uppercase">
             Sanshiro Hikawa
           </span>
         </a>
@@ -69,19 +69,18 @@ const Header = () => {
 
           <button
             onClick={toggle}
-            className="md:hidden flex items-center gap-2 text-ntext"
+            className="md:hidden flex items-center text-ntext p-1"
             aria-label="Menu"
           >
-            <span className="text-[10px] tracking-[0.2em] uppercase">Menu</span>
-            <div className="flex flex-col gap-[4px]">
+            <div className="flex flex-col gap-[6px]">
               <motion.span
-                className="w-4 h-[1.5px] bg-ntext block origin-center"
-                animate={isMenuOpen ? { rotate: 45, y: 2.75 } : { rotate: 0, y: 0 }}
+                className="w-6 h-[1.5px] bg-ntext block origin-center"
+                animate={isMenuOpen ? { rotate: 45, y: 3.75 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.25 }}
               />
               <motion.span
-                className="w-4 h-[1.5px] bg-ntext block origin-center"
-                animate={isMenuOpen ? { rotate: -45, y: -2.75 } : { rotate: 0, y: 0 }}
+                className="w-6 h-[1.5px] bg-ntext block origin-center"
+                animate={isMenuOpen ? { rotate: -45, y: -3.75 } : { rotate: 0, y: 0 }}
                 transition={{ duration: 0.25 }}
               />
             </div>

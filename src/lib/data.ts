@@ -7,9 +7,8 @@ export const profileData: Profile = {
   name: 'Sanshiro Hikawa',
   title: 'Full-stack Engineer / AI Integration',
   tagline: {
-    line1: '営業から、エンジニアへ。',
-    line2: 'そして、AIと共に作る側へ。',
-    line3: '人と技術の間をつなぐ、フルスタックエンジニア。',
+    line1: '技術で、',
+    line2: '人の可能性を広げる。',
   },
   heroLead:
     '熊本の通信会社で営業として働いた後、上京してエンジニアに転向。現在は実務でフロントエンドとバックエンドを横断し、副業では企業のAI導入支援を担当。事業の言葉を技術の言葉に翻訳しながら、使われるプロダクトを作っています。',

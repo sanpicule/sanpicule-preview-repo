@@ -81,7 +81,6 @@ export interface Profile {
   tagline: {
     line1: string;
     line2: string;
-    line3: string;
   };
   heroLead: string;
   introduction: string;
